@@ -1,0 +1,12 @@
+msc {
+	# Entity
+	a[label="Client"],
+	b[label="Server"];
+	# Messages
+	a -> b[label="Upload Request"];
+	a box b[label="Share Secure Key", textbgcolour="silver"];
+	b => a[label="Set Encryption Method"];
+	a => a[label="Encrypt data"];
+	a => b[label="Upload Data"];
+	b => b[label="Decrypt data& Store"];
+}

@@ -1,0 +1,15 @@
+msc {
+	 a[label="Entity A", arclinecolor="green", arctextcolor="#ffffff", arctextbgcolor="black"],
+	 b[label="Entity B", arctextbgcolor="yellow", arctextcolor="#800000"],
+	 c[label="Entity C", arclinecolor="blue"];
+	 
+	 a->b [label="A to B"];
+	 a->b [label="A to B (again)"];
+	 a->c [label="A to C"];
+  	 b->c [label="B to C"];
+  	 b->a [label="B to A"];
+  	 b->b [label="Cycle on B"];
+  	 c->c [label="Cycle on C"];
+  	 a<-c;
+  	 a<-b [label="reverse()"];
+}

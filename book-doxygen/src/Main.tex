@@ -1,0 +1,50 @@
+\documentclass{../style/Boostan-Book}
+
+
+\title{مستندنویسی فنی}
+\subtitle{با استفاده از \glspl{Doxygen}}
+\author{
+	مصطفی برمشوری،
+	محمدهادی منصوری،
+	قاسم خانزاده,
+	مهدی علی‌پور
+}
+
+
+\input{glossary}
+\input{glossary-computer-engineering}
+\input{glossary-programming}
+\input{glossary-vhdl}
+\input{glossary-doxygen}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\listoffigures
+\input{intro}
+
+% NOTE : مصطفی 1391 : تشریح نصب و راه اندازی
+%   در این قسمت در مورد نصب و راه اندازی در سیستم‌های متفاوتی تشریح شده است
+\input{install}
+
+% NOTE : مصطفی 1391 : تشریح نحوه نوشتن
+%   در این بخش تنها به بررسی اصول نوشتن مستند پرداخته شده است مستقل از نوع
+%   کاربرد آن در استانداردهای متفاوت.
+\input{write}
+
+% NOTE : مصطفی 1391 : استانداردهای گروه
+% این قسمت قراردادهای گروه برای نوشتن مستند تکنیکی در پروژه های برنامه نویسی آورده شده است
+% این استاندارهای مربوط به دو زبان برنامه سازی سی و جاوا است.
+%   \input{استانداردها/قراردادهای-نوشتن-مستند}
+\input{standards}
+
+% در این قسمت نمونه پروژه‌های که در رابطه با مستند سازی است آورده شده است. این نمونه‌های می‌تواند
+% به عنوان یک الگو برای دیگر پروژه ها استفاده شود.
+% TODO : مصطفی ۱۳۹۰-۱۲ : نمونه‌ها در ویرایش نخست اورده نمی‌شود.
+%\input{example}
+
+% \bibliographystyle{ieeetr-fa}
+% \bibliography{reference,standards,build,ref,urls}
+% \makeglossaries
+% \printglossaries
+\end{document}

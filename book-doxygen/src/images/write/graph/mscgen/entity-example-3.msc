@@ -1,0 +1,11 @@
+msc {
+	a[label="Entity A", linecolor="green", textcolor="red", textbgcolor="yellow"],
+	 b[label="Entity B", linecolor="blue", textcolor="#800000", textbgcolor="#c0c0c0"],
+	 c[label="Entity C"];
+	 
+	 a->b;
+  	 b->c;
+  	 c->c;
+  	 a<-c;
+  	 a<-b;
+}

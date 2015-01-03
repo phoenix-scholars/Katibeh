@@ -1,0 +1,144 @@
+% در این مستند به ابزارها و روشهای نوشتن مستند پرداخته می‌شود که از مستند سازی Qt
+% وارد Doxygen شده است.
+\section{مستندگر کیوتی}
+
+\lr{QtDoc} یا \lr{QDoc} ابزاری جهت ایجاد مستند توسعه بر اساس متن برنامه است که توسط توسعه دهندگان
+بسته نرم‌افزاری \lr{Qt} مورد استفاده قرار می‌گیرد. این ابزار بر اساس مستند‌های نوشته شده در 
+پرونده‌های \lr{.cpp} و \lr{.qdoc}،  مستند توسعه را در قالب‌هایی مانند \lr{XML} و یا دیگر قالب‌های
+متنی ایجاد می‌کند. توجه به این نکته مهم است که، در این نرم‌افزار پرونده‌های سرایند\footnote{\lr{Header Files}}
+در فرآیند استخراج متن نادیده گرفته می‌شوند. متن‌های مستند در \lr{QDoc} با استفاده از نشانه تعجب 
+در متن برنامه مشخص می‌شود. در نمونه زیر ساختار نوشتن یک مستند بر اساس استاندارد \lr{QDoc}
+نشان داده شده است.
+\begin{latin}
+ \lstset{language=C++}  
+\begin{lstlisting}[frame=single] 
+  /*! 
+      \class QObject
+      \brife QObject is base class in Qt.
+      
+      QObject is heart of the Qt lib.
+   */
+\end{lstlisting}
+\end{latin}
+
+همان گونه که در نمونه بالا قابل مشاهده است، برچسب‌ها در استاندارد \lr{QDoc} همانند 
+برچسب‌ها در \lr{Doxygen}  با استفاده از \textbackslash مشخص می‌شوند. تمام برچسب‌های
+موجود در استاندارد مستند نویسی \lr{QDoc} را می‌توان به سه دسته تقسیم کرد، که عبارت‌اند از:
+\begin{itemize}
+ \item موضوع
+ \item متن
+ \item نشانک‌ها
+\end{itemize}
+تمام برچسب‌های تعریف شده در استاندارد \lr{QDoc} ، در \lr{Doxygen} نیز تعریف شده است، از این رو 
+با استفاده از \lr{Doxygen} می‌توان مستند توسعه را بر اساس متن برنامه‌های ایجاد کرد که بر اساس
+استانداردهای \lr{QDoc}‌ایجاد شده اند.در این بخش به صورت گذرا، هرکدام از این دسته‌ها را بررسی 
+خوا‌هیم کرد.
+\subsection{موضوع}
+برچسب‌های موضوع تعیین می‌کنند که یک مستند نوشته شده به کدام قسمت از متن برنامه 
+مربوط می‌شود. دسته‌ای از این برچسب‌ها نیز برای ایجاد صفحه‌هایی از مستند‌ها و دسته بندی
+کردن آنها به کار می‌روند. زمانی که با استفاده از برچسب‌های موضوع تعیین نمی‌شود که مستند
+به کدام قسمت از متن مربوط می‌شود، مستند به کدی نسبت داده می‌شود که بلافاصله بعد از 
+مستند قرار گرفته است. اگر برچسب موضوع نتواند به درستی قسمتی از متن برنامه را آدرس دهی
+کند، برچسب نادیده گرفته می‌شود و مستند به متن برنامه‌ای که بلافاصله بعد از آن آمده است 
+نسبت داده می‌شود. در جدول \ref{جدول_برچسب_عنوان_QDoc} فهرستی از پرکاربرد ترین
+برچسب‌های موضوع آورده شده است.
+\begin{table}[ht]
+ \centering
+  {%
+    \newcommand{\mc}[3]{\multicolumn{#1}{#2}{#3}}
+    \begin{center}
+    \begin{tabular}{|l|l|}\hline
+      \mc{1}{r}{\lr{class}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{enum}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{example}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{externalpage}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{fn (function)}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{group}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{headerfile}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{macro}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{module}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{namespace}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{page}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{property}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{service}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{typedef}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{variable}} & \mc{1}{r}{x}\\\hline
+    \end{tabular}
+    \end{center}
+  }%
+ \caption{فهرست پر کاربرد ترین برچسب‌های عنوان در استاندارد \lr{QDoc}. }
+ \label{جدول_برچسب_عنوان_QDoc}
+\end{table}
+
+\subsection{متن}
+مستندهای متن، دسته‌ای از مستندها هستند که در ابزارهای خودکار مستند سازی قادر به تشخیص و ایجاد آنها نیستند.
+برای نمون ابزارهای مستند ساز قادر به تشخیص مطلب‌های مرتبط با هم نیست. از این رو دسته‌ای از برچسب‌ها 
+پیش بینی شده‌اند که در ایجاد و مدیریت اینگونه مستندها به کار می‌روند. به این دسته از برچسب‌ها برچسب‌های متن
+گفته می‌شود. در جدول \ref{جدول_برچسب_متن_QDoc} فهرستی از پرکابرد ترین برچسب‌های متن آمده است.
+\begin{table}[ht]
+ \centering
+  {%
+    \newcommand{\mc}[3]{\multicolumn{#1}{#2}{#3}}
+    \begin{center}
+    \begin{tabular}{|l|l|}\hline
+      \mc{1}{r}{\lr{compat}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{contentspage}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{indexpage}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{ingroup}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{inherits}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{inmodule}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{internal}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{mainclass}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{nextpage}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{nonreentrant}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{obsolete}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{overload}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{previouspage}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{relates}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{since}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{startpage}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{subtitle}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{title}} & \mc{1}{r}{x}\\\hline
+    \end{tabular}
+    \end{center}
+  }%
+ \caption{فهرست پر کاربرد ترین برچسب‌های متن در استاندارد \lr{QDoc}. }
+ \label{جدول_برچسب_متن_QDoc}
+\end{table}
+
+
+\subsection{نشانک‌ها}
+آخرین دسته از برچسب‌ها، نشانک‌ها هستند. نشانک‌ها برای نوشتن و ساختاردهی کردن متن ایجاد شده
+مورد استفاده قرار می‌گیرند. برای نمونه فهرست، جدول، پیونده به دیگر مستندها، ویا استفاده از 
+یک تصویر خاص با استفاده از برچسب‌های نشانک ایجاد می‌شوند. در جدول \ref{جدول_برچسب_نشانک_QDoc}
+فهرستی از پرکاربرد ترین نشانک‌ها در استاندارد \lr{QDoc} آمده است.
+\begin{table}[ht]
+ \centering
+  {%
+    \newcommand{\mc}[3]{\multicolumn{#1}{#2}{#3}}
+    \begin{center}
+    \begin{tabular}{|l|l|}\hline
+      \mc{1}{r}{\lr{a}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{bold}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{brief}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{c}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{caption}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{chapter}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{code}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{footnote}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{image}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{include}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{input}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{part}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{quotation}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{section1}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{section2}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{section3}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{section4}} & \mc{1}{r}{x}\\\hline
+      \mc{1}{r}{\lr{underline}} & \mc{1}{r}{x}\\\hline
+    \end{tabular}
+    \end{center}
+  }%
+ \caption{فهرست پر کاربرد ترین برچسب‌های نشانک در استاندارد \lr{QDoc}. }
+ \label{جدول_برچسب_نشانک_QDoc}
+\end{table}

@@ -1,0 +1,4 @@
+msc{
+	a, b1, b2, b3;
+	a ->* [label="Signal"];
+}

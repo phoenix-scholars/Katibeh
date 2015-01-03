@@ -1,0 +1,57 @@
+% در این قسمت نحوه‌ی نصب، روی سیستم عامل های لینوکسی شرح داده می شود.
+% محمد هادی منصوری ۹۰/۳/۲
+\section{سیستم عامل‌های لینوکسی} 
+
+\begin{sloppypar}
+برای نصب \lr{Doxygen} روی سیستم عامل‌های لینوکسی نیاز به توزیع دودویی مناسب برای سیستم عامل خود دارید. از آدرس 
+\url{http://www.doxygen.org/download.html}
+ می‌توانید توزیع مناسب را دریافت کنید. پس از دریافت توزیع مناسب، با دستورات زیر می‌توان \lr{Doxygen} را نصب کرد. 
+معمولا بین پرونده‌های دریافت شده، پرونده‌ای به نام \lr{configure} وجود دارد. این پرونده حاوی دستورات خط فرمان (دستورات شل) برای 
+پیکربندی اولیه است. دستورات زیر پیکربندی اولیه را انجام داده و برنامه را نصب می‌کند.
+\end{sloppypar}
+\begin{latin}
+\lstset{language=C++}  
+\begin{lstlisting}[frame=single] 
+./configure
+make install
+\end{lstlisting}
+\end{latin}
+%\begin{flushleft}
+%\lr{./configure} \\
+%\lr{make install}
+%\end{flushleft}
+برای نصب مستندات و مثال‌ها دستور زیر را اجرا کنید.
+\begin{latin}
+\lstset{language=C++}  
+\begin{lstlisting}[frame=single] 
+make install_docs
+\end{lstlisting}
+\end{latin}
+%\begin{flushleft}
+%\lr{make install\_docs}
+%\end{flushleft}
+پرونده‌های اجرایی در مسیر 
+\lr{<prefix>/bin}
+ و مستندات و مثال‌ها در مسیر 
+\lr{<docdir>/doxygen}
+  نصب می‌شوند.
+
+\begin{sloppypar}
+به صورت پیش‌فرض 
+\lr{<prefix>}
+ به آدرس 
+\lr{usr/local}
+ اشاره دارد، اما می‌توان آن را با تغییر پارامتر 
+\lr{--prefix}
+ در پرونده‌ی \lr{configure} تغییر داد. 
+\lr{<docdir>}
+ نیز به صورت پیش‌فرض به آدرس 
+\lr{<prefix>/share/doc/packages}
+ اشاره دارد که این آدرس را نیز می‌توان با تغییر پارامتر 
+\lr{--doxdir}
+ در پرونده‌ی \lr{configure} عوض کرد.
+\end{sloppypar}
+
+در صورتی که از بسته‌های \lr{RPM} یا \lr{DEP} استفاده می‌کنید، همان روند استاندارد 
+نصب را دنبال کنید که برای این بسته‌ها مورد نیاز است.
+

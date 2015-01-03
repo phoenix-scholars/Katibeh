@@ -1,0 +1,212 @@
+
+
+\chapter{خودکار سازی}
+
+ایجاد پروژه آخرین کاری است که در یک پروژه نرم‌افزاری انجام می‌شود. در این  فاز
+تمام برنامه‌های نوشته شده توسط توسعه دهندگان سیستم ترجمه شده و یک برنامه اجرایی
+ایجاد می‌شود. کارهایی که در این فاز از پروژه انجام می‌شوند عبارت‌اند از:
+
+\begin{itemize}
+  \item ترجمه برنامه‌ها به برنامه‌های اجرایی
+  \item ایجاد بسته‌های نرم‌افزاری مبتنی بر برنامه‌های اجرایی
+  \item ارزیابی و بررسی کیفیت محصول
+  \item ایجاد قابلیت انتقال به روی سیستم‌های متفاوت
+  \item ایجاد مستند و راهنما
+\end{itemize}
+
+گرچه ممکن است که فرآیند ساخت از یک پروژه به پروژه دیگر متفاوت باشد اما این
+فرآیند به صورت مشابه و یکنواخت در تمام آنها اجرا می‌شود. برای نمونه گرچه در
+پروژه‌های که از زبانهای مفسری مانند \lr{PHP} استفاده شده باشد ترجمه برنامه به
+برنامه‌های اجرایی هرگز انجام نمی‌شود اما مراحل دیگر ساخت پروژه همچنان پا برجا
+خواهد بود.
+
+از آنجا که این کار تنها توسط توسعه دهندگان سیستم قابل اجرا و در تمام
+پروژه‌ها مورد نیاز است، دور از تصور نیست که این فرآیند به صورت خودکار و توسط یک
+ماشین قابل اجرا باشد. خودکار سازی در اینجا نیز به این نکته اشاره دارد. با
+استفاده از روش‌های خودکار ساخت پروژه نه تنها می‌توان از میزان هزینه‌ها مانند
+زمان و نیروی انسانی کاست بلکه می‌توان به کیفیت کار انجام شده نیز افزود.
+
+ساخت خودکار یک پروژه نرم‌افزاری عبارت است از یک نپشته\LTRfootnote{Script}،
+برنامه و یا هر سیستم دیگری که مراحل ساخت یک پروژه را به صورت خودکار و بدون دخالت
+کاربر انجام دهد.
+    
+% History
+
+ابتدایی ترین تلاش‌ها برای خودکار سازی فرآیند ساخت توسط توسعه دهندگان سیستم‌ها
+بود. توسعه دهندگان با استفاده از برنامه‌ها و نپشته‌ها مترجم‌ها و پیوندگرها را با
+استفاده از دستورهای خط فرمان فراخوانی و با استفاده از آن برنامه‌های
+اجرایی را ایجاد می‌کردند. برای نمونه با استفاده از نپشته زیر که در سکوی لینوکس
+قابل اجرا است می‌توان تمام پرونده‌های ایجاد شده در یک پروژه سی را ترجمه کرده و
+یک برنامه اجرایی ایجاد کرد.
+
+\begin{latin}
+\lstset{language=BASH}  
+\begin{lstlisting}[frame=single] 
+#!/bin/bash
+DIR="$1"
+OUT="$2"
+[ "$DIR" == "" ] && DIR="."
+fileArray=($(find -name "*.c"))
+
+#Compile and creat object file
+for file in ${fileArray[*]}
+do
+	g++ -Wall -O $file -o ${file}.o
+done
+
+#Link all objrct file
+for file in ${fileArray[*]}
+do
+	g++ ${file}.o $OUT
+done
+
+\end{lstlisting}
+\end{latin}
+
+با استفاده از این نپشته تمام پرونده‌های \lr{*.c} در یک مسیر با استفاده از مترجم
+\lr{g++} ترجمه شده و با استفاده از پیوندگر\LTRfootnote{Linker} یک برنامه اجرای
+ایجاد می‌شود.
+گرچه این نپشته بسیار ساده است اما به عنوان ابتدایی ترین سیستم‌های خودکارسازی
+فرآیند ساخت مورد استفاده قرار می‌گرفته است.
+
+استفاده از دستورهای خط فرمان و ترجمه تک تک برنامه‌های نوشته شده و درنهایت ایجاد
+یک برنامه اجرایی با استفاده از یک پیوندگر ساده است. اما زمانی که نیاز به ترجمه
+پروژه‌های بزرگ که از قطعه‌های متفاوتی ایجاد شده‌اند و بین آنها وابستگی از پیش
+تعریف شده‌ای وجود دارد استفاده از این روش‌های ساده مناسب نیست.
+
+تلاش بعدی توسعه دهندگان سیستم‌های نرم‌افزاری منجر به ایجاد برنامه‌ها و زبانهای
+جدید برای خودکار سازی فرآیند ساخت شد. از این میان می‌توان به زبان \lr{Make}
+اشاره کرد. این زبان خودکار سازی را می‌توان به عنوان یک جایگزین مناسب برای
+نپشته‌های ابتدایی در نظر گرفت. نپشته‌های مورد استفاده در این ابزار امکان نوشتن
+وظایف متفاوت مانند ترجمه و پیوند به صورت متوالی  وجود دارد. نسخه‌های ایجاد شده
+توسط گروه \lr{GNU} نه تنها توانایی یاد شده را فراهم کرده است بلکه توانایی ساخت
+موازی، توزیع شده و یا ایجاد بر اساس وابستگی‌ها نیز فراهم شده است.
+
+اما این تنها آغاز راه بود و فرآیند ساخت به سرعت پیچیده شد. در ابتدا فرآیند ساخت
+تنها به ترجمه و پیوند برنامه‌ها توجه داشت. امروزه فرآیند ساخت انقدر پیچده شده
+است که نه تنها مترجم‌ و پیوندگرها مورد استفاده قرار می‌گیرد بلکه از سیستم‌های
+متفاوت دیگر مانند مستندگر، کنترل نسخه، برنامه‌های ارزیابی و بسیاری دیگر مورد
+استفاده قرار می‌گیرد. 
+
+در حال حاضر فرآیند ایجاد شامل وظایف متفاوتی چه قبل از ترجمه و چه بعد از ترجمه
+می‌شود. فرآيند ساخت آن چنان پیشرفت کرده است که امروزه بر فرآیند توسعه سیستم‌های
+نرم‌افزاری تاثیر گذاشته و منجر به ایجاد متدلوژی‌های جدیدی شده است.
+
+% TODO : maso 1391 : روش‌های CI و ایجاد توزیع شده را باید بررسی کنم
+
+% New breed of solutions
+
+امروزه گونه‌های جدید ابزارهای خودکار سازی فرآیند ساخت امکانات بسیار متفاوت و
+مناسبی را ارائه می‌کنند.
+این ابزارها به صورت‌های متفاوتی چون نرم‌افزارهای متن باز و یا تجاری ارائه
+می‌شوند.
+در بسیاری از این ابزارها تمرکز به روی اجرای نپشته‌های ایجادگر است در حالی که
+گونه‌های دیگر با توجه به کارهای مورد نیاز پیش و پس از فرآیند ساخت تلاش دارند که
+ابزارهای مناسب برای ساده سازی این فرآیند را ارائه کنند. هدف اصلی در ساده سازی
+فرآیند ساخت فراخوانی راحت مترجم‌ها، پیونگرهای و دیگر ابزارهای مورد نیاز در
+فرآیند ساخت است.
+استفاده از این ابزارها در فرآیندهای توسعه مبتنی بر ساخت\LTRfootnote{Continous
+Integeration} بسیار اساسی است تا جایی که توسعه سیستم بدون این سیستم‌ها غیر ممکن
+می شود.
+
+
+% Advanced build automation
+
+ابزارهای مدرن ساخت از پیشکارهای\LTRfootnote{Agent} دور برای ایجاد پروژه به صورت
+توزیع شده استفاده می‌کنند. واژه ساخت توزیع شده\LTRfootnote{Distributed
+builds} به معنی فراخوانی مترجم و پیوندگر به صورت توزیع شده به روی ماشین‌های
+متفاوت است که منجر به افزایش سرعت فرآیند ساخت می‌شود.
+این واژه به صورت معمول با واژه محاسبات توزیع شد\LTRfootnote{Distributed
+Processing} به اشتباه گرفته می‌شود.
+
+% Distributed processing means that each step in a process or workflow can be sent
+% to a different machine for execution. For example, a post step to the build may
+% require the execution of multiple test scripts on multiple machines. Distributed
+% processing can send the different test scripts to different machines.
+% Distributed processing is not distributed builds. Distributed processing cannot
+% take a make, ant or maven script, break it up and send it to different machines
+% for compiling and linking.
+% 
+% The distributed build process must have the machine intelligence to understand
+% the source code dependencies in order to send the different compile and link
+% steps to different machines. A build automation solution must be able to manage
+% these dependencies in order to perform distributed builds. Some build tools can
+% discover these relationships programmatically (Rational ClearMake
+% distributed[1], Electric Cloud ElectricAccelerator[2]), while others depend on
+% user-configured dependencies (Platform LSF lsmake[3])
+% 
+% Build automation that can sort out source code dependency relationships can also
+% be configured to run the compile and link activities in a parallelized mode.
+% This means that the compiler and linkers can be called in multi-threaded mode
+% using a machine that is configured with more than one core.
+% 
+% Not all build automation tools can perform distributed builds. Most only provide
+% distributed processing support. In addition, most solutions that do support
+% distributed builds can only handle C or C++. Build automation solutions that
+% support distributed processing are often make based and many do not support
+% Maven or Ant.
+% 
+% An example of a distributed build solution is Xoreax's IncrediBuild[4] for the
+% Microsoft Visual Studio platform or the open-source CMake[5]. These may require
+% particular configurations of a product environment so that it can run
+% successfully on a distributed platform—library locations, environment variables,
+% and so forth.
+
+از سویی استفاده از پیشکارهای متفاوت با گونه‌های متفاوت امکان ایجاد یک سیستم
+نرم‌افزاری مبتنی بر سکو‌های متفاوت را نیز امکان پذیر می‌سازد. پیشکارهایی که به
+روی سکوی لینوکس\LTRfootnote{Linux} تعبیه شده‌اند سیستم نرم‌افزاری را برای این
+سکو ترجمه و به برنامه اجرای تبدیل می‌کنند در حالی که پیشکارهای تعبیه شده به روی
+سکوی ویندوز\LTRfootnote{Windows} کار مشابه‌ای را برای سیستم عامل ویندوز انجام
+می‌دهند.
+
+% Advantages
+
+خودکارسازی فرآیند ایجاد، منافع زیادی برای گروه توسعه به دنبال دارد. به عنوان
+نمونه برخی از این موارد عبارت‌اند از:
+
+\begin{itemize}
+  \item افزایش کیفیت محصولها
+  \item تسریع در فرآیند ایجاد
+  \item کاهش کارهای بیهوده
+  \item کاهش اشتباه در فرآیند ساخت
+  \item کاهش وابستگی به فرد
+  \item نگهداری تاریحچه ساخت برای دنبال کرده ایرادها
+  \item کاهش هزینه‌ها
+\end{itemize}
+
+% Types
+%     On-Demand automation such as a user running a script at the command line
+%     Scheduled automation such as a continuous integration server running a nightly build
+%     Triggered automation such as a continuous integration server running a build on every commit to a version control system.
+% Requirements of a build system
+% 
+% Basic requirements:
+% 
+%     Frequent or overnight builds to catch problems early.[7][8][9]
+%     Support for Source Code Dependency Management
+%     Incremental build processing
+%     Reporting that traces source to binary matching
+%     Build acceleration
+%     Extraction and reporting on build compile and link usage
+% 
+% Optional requirements:[10]
+% 
+%     Generate release notes and other documentation such as help pages
+%     Build status reporting
+%     Test pass or fail reporting
+%     Summary of the features added/modified/deleted with each new build
+
+در تمام فرآیندهای ساخت ایجاد مستند تکنیکی و کاربری یکی از مراحل ایجاد بوده و
+بدون آن فرآیند ایجاد نرم‌افزار ناقض خواهد بود. در این گفتار ابزارهای خودکار سازی
+فرآیند ساخت معرفی شده و تنظیم‌های مورد نیاز برای ایجاد مستند تکنیکی در آنها
+تشریج می‌شود.
+
+نکته‌ای که باید در این گفتار به آن توجه داشت این است که، همواره فرض بر این است
+که در فرآیند توسعه از استانداردهای تعریف شده در این کتاب استفاده شده است. در غیر
+این صورت مراحل و تنظیم‌های مورد نیاز کمی متفاوت خواهد بود.
+
+
+\input{standards/automation/rpm}
+\input{standards/automation/opensuse-build}
+% \input{standards/automation/bamboo}
+

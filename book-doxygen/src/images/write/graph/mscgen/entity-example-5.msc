@@ -1,0 +1,12 @@
+msc {
+	 a[label="Arsheet", ID="1", URL="www.arsheet.org"],
+	 b[label="My System", ID="2"],
+	 c[label="Entity C", ID="id 3", IDURL="www.google.com"];
+	 
+	 a->b [label="A to B"];
+	 a->b [label="A to B (again)"];
+	 a->c [label="A to C"];
+  	 b->c [label="B to C"];
+  	 b->b [label="Cycle on B"];
+  	 a<-c;
+}

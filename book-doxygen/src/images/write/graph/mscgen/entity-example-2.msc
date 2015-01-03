@@ -1,0 +1,6 @@
+msc {
+width="800";
+	"Entity Number one", "Entity Number two";
+	
+	"Entity Number one"->"Entity Number two";
+}

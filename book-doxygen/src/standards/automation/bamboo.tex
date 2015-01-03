@@ -1,0 +1,205 @@
+
+\section{\lr{Bamboo}}
+
+\lr{Bamboo} یک کارگزار مجتمع سازی پیوسته\LTRfootnote{Continuous Integration} یا
+\lr{CI} است که می‌تواند برای توسعه سیستم‌های نرم‌افزاری و ساخت آنها بر اساس
+قراردادهای این روش مورد استفاده قرار گیرد.
+
+% What does this mean?
+مجتمع سازی پیوست یک متدلوزی توسعه و ساخت سیستم‌های نرم‌افزاری است که در آن 
+هم زمان با تغییر کد منبع سیستم‌های نرم‌افزاری، فرآیند ترجمه، ارزیابی
+برنامه‌ها و ارزیابی مجتمع سازی اجرا (و یا تحریک) می‌شود تا از درست بودن کدهای
+ایجاد شده در مقایسه با کل سیستم اطمینان حاصل شود. در این فرآیند توسعه همواره
+کیفیت نرم‌افزار ایجاد شده در حالت کلی و ایجاد بسته‌های نرم‌افزاری در قبال هر
+تغییر بررسی خواهد شد. شکل \ref{image/standard/build/bamboo-arch} فرآیند کلی مورد
+استفاده در این متدلوژی را نمایش داده است.
+
+فرآیند ایجاد سنتی سیستم‌های نرم‌افزاری شامل ترجمه، ارزیابی برنامه‌ها و ایجاد
+بسته‌ها همواره در این متدلوژی اجرا می‌شود اما به این معنی نیست که به واسطه هر
+تغییر یک نسخه جدید از نرم‌افزار ایجاد شده است. از این رو فرآیند ایجاد نسخه جدید
+از یک سیستم نرم‌افزاری کمی با حالت سنتی آن متفاوت است. در این متدلوژی ارائه یک
+نسخه جدید تنها زمانی انجام می‌شود که تمام نقشه راه در نظر گرفته شده برای سیستم
+نرم‌افزاری به صورت کامل پیاده سازی شده و تمام ارزیابی‌ها را با موفقیت پشت
+سر گذاشته باشد.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{image/standard/build/bamboo-arch}
+\caption[فرآیند مجتمع سازی پیوسته یا \lr{CI}]{
+	در این فرآيند
+}
+\label{image/standard/build/bamboo-arch}
+\end{figure}
+
+
+% How does Bamboo do this?
+
+% Bamboo is the central management server which schedules and coordinates all work.
+اما بامبو یک کارگزار مرکزی است که تمام فرآیندهای ساخت و ارزیابی بسته‌های
+نرم‌افزاری ایجاد شده را مدیریت و برنامه ریزی می‌کند. این کارگزار با استفاده از
+زیر سیستم‌های موجود، نرم‌افزارهای متفاوت را ترجمه کرده و ارزیابی‌های تعریف شده
+برای آنها را اجرا می‌کند.
+
+% Bamboo itself has interfaces and plugins for lots of types of work.
+گرچه افزونه‌های متفاوتی برای این کارگزار تعریف شده است که قادر هستند کارهای
+متفاوتی را در فرآیند ساخت و ارزیابی اجرا کنند اما امکان تعریف افزونه‌های جدید
+نیز پیش بینی شده است. توانایی تعریف افزونه‌های جدید برای این کارگزار، آن را به
+عنوان یک ابزار بسیار قدرتمند در متدلوژي مجتمع سازی پیوسته تبدیل کرده است.
+
+%  Bamboo first gets your source from a source repository (lots of plugins here for a variety of systems).
+فرآیند کلی ایجاد و ارزیابی سیستم‌های نرم‌افزاری با دریافت برنامه‌های ایجاد شده
+از سرورهای کنترل نسخه آغاز می‌شود. این کارگزار با استفاده از افزونه‌های متفاوت
+توانایی دریافت برنامه‌های منبع از کارگزارهای متفاوت کنترل نسخه مانند \lr{Git}،
+\lr{SVN}، \lr{CVS} و غیر را دارد.
+
+% Then Bamboo starts the build - that can be done by calling something like MSBuild to build your Visual Studio solution, or Maven to call your compiler and linker - whatever you use.
+فرآیند ساخت در این کارگزار با فراخوانی ابزارها معمول ساخت برنامه‌های نرم‌افزاری
+اینجام می‌شود. برای نمونه با استفاده از فراخوانی مترجم \lr{GCC} در لینوکس
+نرم‌افزارهایی که به زبان برنامه سازی \lr{C/C++} ایجاد شده‌اند ترجمه می‌شوند. از
+این رو زیر سیستم‌های تعریف شده برای این کارگزار می‌بایست توانایی استفاده از این
+فراخوانی‌های در آنها ایجاد شده باشد (به این معنی  نه تنها ابزارهای مورد نیاز
+باید نصب شده باشد بلکه در مسیرهای پیش فرض سیستم قرار گرفته شده باشد).
+
+% Once your solution or project is built, you have "artifacts" (build results, for example, an executable app, config files, etc.).
+پس از اتمام فرآیند ساخت گردایه‌ای از برنامه‌های و پرونده‌هایی ایجاد خواهد شد که
+به عنوان نتیجه ساخت در نظر گرفته می‌شود. نتیجه‌های ایجاد شده در فرآیند ساخت را
+اصطلاحا مصنوع\LTRfootnote{Artifact} گفته می‌شود. مصنوعات ایجاد شده در فرآیند
+ساخت ممکن است از یک برنامه‌اجرایی تا یک پرونده پیکره بندی متفاوت باشد. برای
+نمونه مستند فنی که نتیجه فرآیند ساخت مستند بر اساس کد فنی است شامل پرونده‌های
+زنگام\LTRfootnote{HTML}، تصاویر و پوشه‌های متفاوت است.
+
+% You can do additional things with the build artifacts:
+%         zip them up into a ZIP file and copy them somewhere.
+%         run a install builder on them and create an MSI.
+%         install them on a test server to make sure everything installs just fine.
+کارگزار ساخت می‌تواند کارهای متفاوتی را بر اساس مصنوعات انجام دهد. فشرده سازی،
+نصب، اجرا برنامه‌های ارزیاب بخشی از فرآیندهایی است که می‌توان بر اساس مصنوعات
+اجرا کرد. برای نمونه با نصب یک برنامه ایجاد شده به روی ماشین‌های مجازی در نظر
+گرفته شده، درست بودن فرآیند نصب مورد بررسی قرار می‌گیرد.
+
+% Bamboo provides a web front-end for configuration and for reporting the status of builds.
+استفاده از یک تارافزار به عنوان واسط کاربر بامبو را به یک کارگزار بسیار ساده
+تبدیل کرده است که با وجود سادگی ظاهر توانایی اجرای فرآیندهای ساخت بسیار پیچیده
+را دارد. با استفاده از این واسط کاربر به سادگی می‌توان نتایج به دست آمده از
+فرآیندهای ساخت متفاوت را بررسی و تنظیم‌های مورد نیاز را در پروژه‌های ایجاد کرد.
+ 
+% What does Bamboo need?
+کارگزار بامبو با زمانبندی فرآیند ساخت هر نرم‌افزار، فرآیندهای ارزیابی را به روی
+نتایج به دست آمده از آن را اجرا خواهد کرد. اما برای استفاده از تمام امکانهای
+تعریف شده در این کارگزار نیاز است که پیش نیازهای آن فراهم شود. تمام نیازهای این
+کارگزار در این فرآیند به عبارت است از:
+
+\begin{itemize}
+  \item کارگزار کنترل نسخه و کد منبع
+  \item نپشته‌های ایجاد
+  \item برنامه‌های ارزیابی
+  \item نپشته‌های بسته بندی
+  \item نپشته‌های ارزیابی مجتمع سازی
+\end{itemize}
+
+در متدلوژی مجتمع سازی پیوست فرض بر این است فردی که کد منبع را تغییر می‌دهد
+مسئولیت تمام تغییرهایی خواهد بود که در کل سیستم رخ می‌دهد. این فرد می‌بایست تمام
+اشکالهای احتمالی که ممکن است در کل سیستم رخ دهد را برطرف کرده تا فرآیند ساخت به
+صورت کامل اجرا شود و مصنوعات ایجاد شده ارزیابی‌های تعریف شده را با موفقیت طی
+کند.
+
+نکته‌ای که باید به آن توجه کرد این است که زیر سیستم‌های مورد استفاده در فرآیند
+ساخت و ارزیابی توانایی‌های خاص خود را دارند از این رو برای ایجاد نپشته‌های ساخت
+و ارزیابی می‌بایست توانایی‌های مورد نیاز به درستی تعیین شود. از این رو کارگزار
+تنها زمانی که زیر سیستم مناسب برای اجرای این فرایند را در اختیار داشته باشد به
+اجرای نپشته‌های ساخت و ارزیابی خواهد پرداخت.
+
+% How is a Bamboo workflow organised?
+
+کارگزار بامبو، وظایف مورد نیاز در فرآیند مجتمع سازی را با استفاده از موجودیت‌های
+متفاوتی مانند پروژه، نقشه، کار و وظیفه سازماندهی می‌کند. ساختار سلسله مراتبی این
+موجودیت ها در شکل \ref{image/standard/build/bamboo-workflow-objects} نمایش داده
+شده است.
+
+در فرآیند ایجاد یک پروژه ابتدا کارگزار نخستن نقشه را انتخاب می‌کند و به اجرا آن
+می‌پردازد. پس از پایان یافتن هر نقشه، نقشه بعد برای اجرا انتخاب خواهد شده در
+حالی که هر نقشه نیز خود از چندین وهله تشکیل شده است. از این رو برای اجرا هر وهله
+نیاز است تمام کارهای تعریف شده در آن به ترتیب اجرا شود. برای اجرای هر کار نیز
+نیاز است که وظایف تعریف شده در آن به ترتیب اجرا شود. بنابر این برای اجرای هر
+نقشه از یک پروژه نیاز است تمام وظیفه‌ها، کارها و وهله‌ها به صورت کامل اجرا شوند
+تا آن نقشه تکمیل شود.
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{image/standard/build/bamboo-workflow-objects}
+\caption[فرآیند مجتمع سازی پیوسته یا \lr{CI}]{
+	در این فرآيند
+}
+\label{image/standard/build/bamboo-workflow-objects}
+\end{figure}
+
+
+% Project	
+% 
+%     Has one, or more, plans.
+%     Provides reporting (using the wallboard, for example) across all plans in the project.
+%     Provides links to other applications.
+% 
+% Plan	
+% 
+%     Has a single stage, by default, but can be used to group jobs into multiple stages.
+%     Processes a series of one or more stages that are run sequentially using the same repository.
+%     Specifies the default repository.
+%     Specifies how the build is triggered and triggering dependencies between a plan and other plans in the project.
+%     Specifies notifications of build results.
+%     Specifies who has permission to view and configure the plan and its jobs.
+%     Provides for the definition of plan variables.
+% 
+% Stage	
+% 
+%     Has a single job, by default, but can be used to group multiple jobs.
+%     Processes its jobs in parallel, on multiple agents (where available).
+%     Must successfully complete all its jobs before the next stage in the plan can be processed.
+%     May produce artifacts that can be made available for use by a subsequent stage.
+% 
+% Job	
+% 
+%     Processes a series of one or more tasks that are run sequentially on the same agent.
+%     Controls the order in which tasks are performed.
+%     Collects the requirements of individual tasks in the job, so that these requirements can be matched with agent capabilities.
+%     Defines the artifacts that the build will produce.
+%     Can only use artifacts produced in a previous stage.
+%     Specifies any labels with which the build result or build artifacts will be tagged.
+% 
+% Task	
+% 
+%     Is a small discrete unit of work, such as source code checkout, executing a Maven goal, running a script, or parsing test results.
+%     Is run sequentially within a job on a Bamboo working directory.
+    
+    
+    
+\subsection{کار مستند فنی}
+
+ایجاد مستند فنی را می‌توان در قالب یک کار در این کارگزار در نظر گرفت. در این کار
+ابتدا باید کد منبع از مخزن‌های کنترل نسخه دریافت شده و بر اساس آن مستند فنی
+ایجاد شود. در نهایت مستند فنی ایجاد شده به صورت پرونده‌های فشرده ایجاد شود و به
+عنوان مصنوعات در سیستم معرفی شود.
+
+
+ایجاد پروژه
+
+ایجاد نقشه
+
+ایجاد وهله
+
+ایجاد کار 
+
+
+
+\subsubsection{کد منبع}
+
+کد منبع از منبع کنترل نسخه دریافت می‌شود
+
+\subsubsection{مستند فنی}
+
+مستند فنی بر اساس آن ایجاد  می‌شود
+
+\subsubsection{بسته بندی}
+
+نتایج به دست آمده بسته بندی می شود

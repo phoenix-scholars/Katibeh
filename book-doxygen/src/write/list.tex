@@ -1,0 +1,255 @@
+% این مستند در مورد ایجاد فهرست در Doxygen است. 
+% مصطفی برمشوری ۱۳۹۰
+\chapter{ایجاد فهرست}
+
+\lr{Doxygen} روشهای متفاوتی را برای ایجاد یک فهرست در مستندها فراهم کرده است.
+روشهای تعیین شده در \lr{Doxygen} را می توان به سه دسته تقسیم کرد: روشهای داخلی،
+استفاده از برچسبهای \lr{HTM} و استفاده از برچسبهای تعریف شده در دیگر ابزارهای
+مستند سازی . گرچه روشهای داخلی تعریف شده در \lr{Doxygen} روش مناسبی را برای
+ایجاد فهرست فراهم کرده‌اند اما استفاده از برچسبهای \lr{HTML} برتریهایی نسبت به
+این روشها دارد که در ادامه به آنها خواهیم پرداخت.
+
+از آنجا که یکی از هدف‌های \lr{Doxygen} توانایی تولید مستند بر اساس دیگر
+استاندارهای مستند سازی است، برچسبهای مورد استفاده در دیگر ابزارهای مستند سازی
+نیز به صورت داخلی تعریف شده و قابل استفاده می باشد. از این رو نه تنها می‌توان از
+روش‌های ایجاد شده در دیگر ابزارها استفاد کرد بلکه مستند‌های ایجاد شده مبتنی بر
+استانداردهای دیگر را نیز مورد استفاده قرار داد.
+
+\section{روش داخلی}
+
+در این روش هر گزینه از فهرست با استفاده از یک خط تیره (علامت منفی) در ابتدای سطر
+تعیین می‌شود. زمانی که نیاز به ایجاد یک گزینه شماره دار باشد بعد از خط تیره
+علامت عدد (?) نیز قرار می‌گیرد. برای ایجاد زیر فهرست برای یک گزینه باید گزینه
+های جدید را با استفاده از فضای خالی جلوتر از گزینه مورد نظر قرار داد.
+در زیر یک نمونه فهرست ایجاد شده به این روش آورده شده است.
+
+\begin{latin}
+\lstset{language=C++}  
+\begin{lstlisting}[frame=single] 
+/**
+ *  A list of events:
+ *    - mouse events
+ *         -# mouse move event
+ *         -# mouse click event\n
+ *            More info about the click event.
+ *         -# mouse double click event
+ *    - keyboard events
+ *         -# key down event
+ *         -# key up event
+ *
+ *  More text here.
+ */
+\end{lstlisting}
+\end{latin}
+
+در نهایت زمانی که با استفاده از \lr{Doxygen} این مستند به قالبهای دیگر تبدیل شود
+نتیجه‌ای مشابه به نوشته زیر به دست خواهد آمد.
+
+ \begin{latin}
+    \begin{itemize}
+	\item mouse events
+		\begin{itemize}
+			\item  mouse move event
+			\item  mouse click event
+			\item   More info about the click event.
+			\item   mouse double click event
+		\end{itemize}
+	\item keyboard events
+		\begin{itemize}
+			\item  key down event
+			\item  key up event
+		\end{itemize}
+  \end{itemize}
+\end{latin}
+
+\begin{note}
+ تعیین  سطح جدید از فهرست نیاز به ایجاد فضای خالی به اندازه یک \lr{TAB} در
+ ابتدای هر گزینه دارد اما ممکن است که اندازه \lr{TAB} در هر مستند متفاوت باشد.
+ از این رو پیش از هر چیز از این نکته اطمینان حاصل کنید که به چه اندازه باید فضای
+ خالی استفاده شود. میزان فضای خالی مورد استفاده برای هر \lr{TAB} در پرونده
+ تنظیمات موجود است. این اندازه به صورت پیشفرض برابر با هشت فضای خالی در نظر
+ گرفته می شود.
+\end{note}
+
+برای تعیین انتهای یک فهرست (در هر سطح) به دو روش می توان عمل کرد. در روش نخست یک
+سطر خالی بعد از گزینه نوشته می‌شود. این روش زمانی مناسب است که یک فهرست به صورت
+کامل تمام شده است و بعد از آن متنهای دیگری از مستند قرار خواهد گرفت. در روش دوم
+در یک سطر جدید یک نقطه گذاشته می شود.
+این روش برای نشان دادن انتهای فهرستی که دارای چندین سطح می‌باشند مناسب است. در
+نمونه زیر  چگونگی استفاده از نقطه برای تعیین انتهای یک فهرست نشان داده شده است.
+
+\begin{latin}
+\lstset{language=C++}  
+\begin{lstlisting}[frame=single] 
+/**
+ * Text before the list
+ * - list item 1
+ *   - sub item 1
+ *     - sub sub item 1
+ *     - sub sub item 2
+ *     . 
+ *     The dot above ends the sub sub item list.
+ *     More text for the first sub item
+ *   .
+ *   The dot above ends the first sub item.
+ *   More text for the first list item
+ *   - sub item 2
+ *   - sub item 3
+ * - list item 2
+ * .
+ * More text in the same paragraph.
+ *
+ * More text in a new paragraph.
+ */
+\end{lstlisting}
+\end{latin}
+
+\section{برچسب‌های ابر متن}
+
+یک روش ساده و بسیار مناسب برای ایجاد فهرست استفاده از برچسب‌های \lr{HTML} است. 
+برتری مهم این روش نسبت به روش‌های دیگر، امکان استفاده از چندین پاراگراف در نوشتن
+یک گزینه است.  در زیر نمونه مطرح شده در قسمت پیشین با استفاده از برچسب‌های
+\lr{HTML} باز نویسی شده است.
+
+\begin{latin}
+\lstset{language=C++}  
+\begin{lstlisting}[frame=single] 
+  /*! 
+   *  A list of events:
+   *  <ul>
+   *  <li> mouse events
+   *     <ol>
+   *     <li>mouse move event
+   *     <li>mouse click event\n
+   *         More info about the click event.
+   *     <li>mouse double click event
+   *     </ol>
+   *  <li> keyboard events
+   *     <ol>     
+   *     <li>key down event
+   *     <li>key up event
+   *     </ol>
+   *  </ul>
+   *  More text here.
+   */
+\end{lstlisting}
+\end{latin}
+
+از انجا که فهرست‌هایی که در سطح‌های پایین‌تر قرار می‌گیرند با استفاده از برچسب
+نشان داده می‌شود دیگر نیازی به استفاده از فضای خالی در ابتدایی یک گزینه نیست.
+شاید بتوان این خصوصیت را یک برتری نسبت به روش پیشین در نظر گرفت.
+
+\section{برچسب‌های دیگر ابزارها}
+
+همانگونه که پیش از این بیان شده، برای ایجاد توانایی حمایت از مستندهای تولید شده
+بر اساس دیگر استانداردها، دسته ای از برچسب‌ها به استاندارد \lr{Doxygen} اضافه
+شده است. برای نمونه می‌توان به برچسب‌های \lr{arg} و \lr{li} اشاره کرد. این
+برچسب‌ها در ابزارهای مستند سازی مانند \lr{QtDoc} و \lr{KDoc} مورد استفاده قرار
+می‌گیرد.
+
+بنابر این می‌توان از روش‌های معادل در ابزارهای دیگر فهرست‌های دلخاه را ایجاد
+کرد. البته ایجاد این توانایی با اشکال‌هایی هم روبرو شده است که در ادامه به صورت
+جداگانه به آنها پرداخته خواهد شد.
+
+\subsection{\lr{QtDoc}}
+
+هر فهرست در مستندهای \lr{QtDoc} با استفاده از برچسب \lr{list} و \lr{endlist}
+ایجاد می‌شود. در حالت کلی یک فهرست به صورت زیر است:
+
+\begin{latin}
+\lstset{language=C++}  
+\begin{lstlisting}[frame=single] 
+/*! 
+ * \list
+ *	<list items>
+ * \endlist
+ */
+\end{lstlisting}
+\end{latin}
+
+که در آن \lr{<list items>} می‌تواند یک گزینه و یا حتی یک فهرست دیگر باشد. بدهی
+است که ایجاد فهرست‌های تودرتو با استفاده از این برچسب‌ها در \lr{QtDoc} ممکن
+خواهد بود.
+
+در این ابزار از برچسب \lr{li} برای ایجاد یک گزینه استفاده می‌شود. از این برچسب
+نه تنها در ایجاد گزینه‌ها در یک فهرست بلکه برای ایجاد سطر در جدول نیز مورد
+استفاده قرار می‌گیرد. در اینجا تنها کاربرد این برچسب در ایجاد یک فهرست مد نظر
+خواهد بود.
+در حالت کلی ایجاد یک گزینه در فهرست با استفاده از این برچسب به صورت زیر است:
+
+\begin{latin}
+ \lstset{language=C++}  
+\begin{lstlisting}[frame=single] 
+/*! 
+ *  \li {item description}
+ */
+\end{lstlisting}
+\end{latin}
+
+پارامتر ورودی یک توصیف از گزینه مورد نظر است. متن هر گزینه با رسیدن به یکی از
+موارد زیر پایان خواهد یافت:
+\begin{itemize}
+  \item یک سطر خالی
+  \item بر چسب دیگری از \lr{li}
+  \item برچسب پایان یک فهرست یا \lr{list}
+  \item برچسب آغاز یک فهرست یا \lr{endlist}
+\end{itemize}
+
+\begin{warning}
+گرچه می‌توان با استفاده از برچسب‌هایی مانند \lr{list} و \lr{endlist} فهرست‌های
+تودرتو ایجاد کرد اما در \lr{Doxygen} این برچسب‌ها مورد حمایت قرار نگرفته است.
+تنها برچسب مورد حمایت در این ابزار \lr{li} است. از این رو فهرست‌های ایجاد شده با
+روش‌های معرفی شده در \lr{QtDoc} به صورت یک فهرست ساده و تک سطحی، در خروجی‌های
+\lr{Doxygen} ظاهر خواهد شد.
+\end{warning}
+
+برای نمونه در مستند زیر یک فهرست ایجاد شده است که خرجی مشابه‌ای در \lr{Doxygen}
+و \lr{QtDoc} دارد.
+
+\begin{latin}
+ \lstset{language=C++}  
+\begin{lstlisting}[frame=single] 
+/**
+ * \list
+ *  \li \c AlignLeft left alignment.
+ *  \li \c AlignCenter center alignment.
+ *  \li \c AlignRight right alignment
+ *	  No other types of alignment are supported.
+ * \endlist
+ */
+\end{lstlisting}
+\end{latin}
+
+\subsection{\lr{KDoc}}
+
+این ابزار که معادل با ابزار \lr{JavaDoc} است، برای ایجاد مستند فنی بر اساس
+برنامه‌های نوشته شده به زبان برنامه نویسی جاوا مورد استفاده قرار می‌گیرد. در این
+ابزار با استفاده از برچسب \lr{arg} یک فهرست ایجاد می‌شود. این برچسب دارای تنها
+یک پارامتر ورودی است. ساختار کلی این برچسب به صورت زیر است.
+
+\begin{latin}
+\lstset{language=C++}  
+\begin{lstlisting}[frame=single] 
+  /*! 
+   *  \arg {item description}
+   */
+\end{lstlisting}
+\end{latin}
+
+پارامتر ورودی در حقیقت متنی است که گزینه را توصیف می‌کند. متن هر گزینه با قرار
+دادن یک سطر خالی و یا شروع شدن یک برچسب جدید \lr{arg}  پایان می‌پذیرد. به این
+نکته باید توجه کرد که با استفاده از این برچسب نمی‌توان فهرست‌های چند سطحی را
+ایجاد کرد.
+
+\begin{latin}
+ \lstset{language=C++}  
+\begin{lstlisting}[frame=single] 
+/**
+ * \arg \c AlignLeft left alignment.
+ * \arg \c AlignCenter center alignment.
+ * \arg \c AlignRight right alignment
+ *	 No other types of alignment are supported.
+ * 
+ */
+\end{lstlisting}
+\end{latin}

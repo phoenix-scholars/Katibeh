@@ -1,0 +1,6 @@
+msc{
+	a,
+	b;
+	a->b[label="signal"];
+	a<-b;
+}

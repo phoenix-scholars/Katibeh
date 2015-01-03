@@ -1,0 +1,57 @@
+
+
+\cite <label>
+
+Adds a bibliographic reference in the text and in the list of bibliographic
+references. The <label> must be a valid BibTeX label that can be found in one of
+the .bib files listed in CITE_BIB_FILES. For the LaTeX output the formatting of
+the reference in the text can be configured with LATEX_BIB_STYLE. For other
+output formats a fixed representation is used. Note that using this command
+requires the bibtex tool to be present in the search path.
+
+CITE_BIB_FILES
+
+The CITE_BIB_FILES tag can be used to specify one or more bib files
+containing the reference definitions. This must be a list of .bib files. The
+.bib extension is automatically appended if omitted. This requires the
+bibtex tool to be installed. See also http://en.wikipedia.org/wiki/BibTeX
+for more info. For LaTeX the style of the bibliography can be controlled
+using LATEX_BIB_STYLE. See also \cite for info how to create references.
+
+
+LATEX_BIB_STYLE
+
+The LATEX_BIB_STYLE tag can be used to specify the style to use for the
+bibliography, e.g. plainnat, or ieeetr. The default style is plain. See
+http://en.wikipedia.org/wiki/BibTeX and \cite for more info.
+
+Some bibliography styles
+
+The PDF file bibstyles.pdf illustrates how these bibliographic styles render
+citations and reference entries:
+
+1: ieeetr 2: unsrt 3: IEEE 4: ama 5: cj 6: nar 7: nature 8: phjcp 9: is-unsrt
+10: plain 11: abbrv 12: acm 13: siam 14: jbact 15: amsplain 16: finplain 17:
+IEEEannot 18: is-abbrv 19: is-plain 20: annotation 21: plainyr 22: decsci 23:
+jtbnew 24: neuron 25: cell 26: jas99 27: abbrvnat 28: ametsoc 29: apalike 30:
+jqt1999 31: plainnat 32: jtb 33: humanbio 34: these 35: chicagoa 36: development
+37: unsrtnat 38: amsalpha 39: alpha 40: annotate 41: is-alpha 42: wmaainf 43:
+alphanum 44: apasoft
+
+(The web page http://www.cs.stir.ac.uk/~kjt/software/latex/showbst.html also
+illustrates several bibliography styles for easy comparison.) Of the 44 styles
+listed above, the first 21 insert just a number in brackets at the point of
+citation [2], while #22-37 use some variation of author/year [K.S.Narenda and
+K.Parthsarathy, 1990], and the rest use some idiosyncratic reference code. Some
+of the styles re-order the references in the bibliography in alphabetical order
+of author, while others list them in the order that they are first cited.
+
+Several of these styles are part of all LaTeX installations, and others can be
+downloaded from http://www.tug.org/tex-archive/biblio/bibtex/contrib/. Each is a
+file with the suffix .bst; for example, to use abbrvnat style, you must have the
+file abbrvnat.bst installed in your LaTeX directory, or in your current working
+directory, or anywhere where LaTeX can find it.
+
+Those dissatisfied with the 100+ styles available online can design their own,
+if they wish; see Oren Patashnik's Designing BibTeX Styles.
+ 

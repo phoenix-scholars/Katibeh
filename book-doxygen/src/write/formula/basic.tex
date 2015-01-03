@@ -1,0 +1,957 @@
+% هادی ۶-۱۳۹۱: در این قسمت باید در مورد نحوه فرمول نویسی در لاتک توضیح داده شود.
+% تا حد امکان خلاصه و جامع. علاوه بر آن در مورد محیط‌های مختلفی که برای
+% فرمول‌نویسی در لاتک وجود دارند نیز باید صحبت شود و کاربرد و نیازهای این محیط‌ها
+% شرح داده شود.
+\section{فرمول نویسی به سبک \lr{\LaTeX}}
+\label{sec:latex-formula}
+در این قسمت فرمول‌نویسی به سبک \lr{\LaTeX} شرح داده می‌شود. باید به این نکته
+توجه داشت که برای ترجمه متون نوشته شده به زبان \lr{\LaTeX} و فرمول‌هایی که در آن
+به کار رفته ممکن است نیاز به این باشد که بسته‌های خاصی را در مستند نوشته شده به
+زبان \lr{\LaTeX} وارد کنید. ما در اینجا در مورد اینکه چگونه به زبان \lr{\LaTeX}
+مستند نویسی کنید و یا اینکه از چه بسته‌هایی استفاده کنید صحبت نخواهیم کرد بلکه
+در این قسمت تنها به این موضوع می‌پردازیم که فرمول‌نویسی به سبک \lr{\LaTeX} چگونه
+است. این سبک فرمول‌نویسی را می‌توانید در مستندات برنامه‌نویسی خود (لابه‌لای
+کدها در جاهایی که نیاز به نوشتن فرمول دارید) بنویسید و سپس با استفاده از ابزار
+\lr{Doxygen} مستند فنی خود را در قالب ابرمتن و یا در قالب \lr{\LaTeX} (به صورتی
+که در قسمت قبل شرح داده شد) تولید کنید. تاکید می‌کنیم که ما در این قسمت و به طور
+کلی در این کتاب قصد نداریم مستند نویسی به زبان \lr{\LaTeX} را شرح دهیم و همچنین
+در مورد اینکه بعد از تولید مستندات فنی در قالب \lr{\LaTeX} توسط \lr{Doxygen}
+چگونه این مستند را به قالب‌های دیگر تبدیل کنید نیز صحبت نخواهیم کرد. فقط به همین
+نکته بسنده می‌کنیم که اغلب برای نوشتن فرمول‌های \lr{\LaTeX} از بسته
+\lr{amsmath}  یا \lr{mathtools} استفاده می‌شود. یعنی از دستور \lr{\textbackslash
+usepackage\{amsmath\}} یا \lr{\textbackslash
+usepackage\{amsmath\}} در ابتدای مستند به زبان \lr{\LaTeX} استفاده می‌شود. بسته
+\lr{amsmath} توسط انجمن ریاضی آمریکا\LTRfootnote{AMS: American Mathematical
+Society} منتشر شده است.
+
+برای فرمول‌نویسی اولین کاری که باید انجام شود این است که به طریقی اعلام کنیم که
+می‌خواهیم فرمول بنویسیم! به همین دلیل در \lr{\LaTeX} محیط‌هایی تعریف شده است که
+فرمول باید در یکی از این محیط‌ها نوشته شود. در شکل کلی یک فرمول به این صورت
+نوشته می‌شود:
+
+\begin{latex}
+\begin{environment}
+formula
+\end{environment}
+\end{latex}
+
+که در آن به جای کلمه \lr{environmet} نام محیط مناسب مورد نظر و به جای کلمه
+\lr{formula} فرمول مورد نظر (با قواعدی که در ادامه خواهد آمد) نوشته می‌شود.
+
+به طور کلی فرمول‌ها را می‌توانیم به دو دسته تقسیم کنیم:
+
+\begin{itemize}
+  \item بین متن: فرمول‌هایی که در جمله متنی ظاهر می‌شوند.
+  \item جداگانه: فرمول‌هایی که به طور جداگانه و خارج از خطوط و جملات متن قرار
+  می‌گیرند (مثلا در یک پاراگراف جدا).
+\end{itemize}
+
+برای نوشتن فرمول‌های بین متنی از محیط \lr{math} استفاده می‌شود و برای فرمول‌های
+جداگانه معمولا از محیط \lr{displaymath} یا \lr{equation*} استفاده می‌شود.
+نوشتن فرمول در این محیط‌ها باعث می‌شود فرمول در خطی جداگانه و البته درست وسط
+خط قرار داده شود. به مثال‌های ساده زیر توجه کنید:
+
+\begin{latex}
+The simple formula,
+\begin{math}
+a+a=2a
+\end{math}
+, is a text formula that write
+in a text line. But the below formula is a seperate formula:
+\begin{displaymath}
+a+a=2a
+\end{displaymath}
+This formula can write as bellow:
+\begin{equation*}
+a+a=2a
+\end{equation*}
+These formuls are in a seperate line and in the center of line.
+\end{latex}
+
+نتیجه این کد \lr{\LaTeX} به صورت زیر خواهد بود:
+
+\begin{latin}
+The simple formula,
+\begin{math}
+a+a=2a
+\end{math}
+, is a text formula that write
+in a text line. But the below formula is a seperate formula:
+\begin{displaymath}
+a+a=2a
+\end{displaymath}
+This formula can write as bellow:
+\begin{equation*}
+a+a=2a
+\end{equation*}
+These formuls are in a seperate line and in the center of line.
+\end{latin}
+
+محیط‌های دیگری هم برای فرمول‌نویسی در \lr{\LaTeX} وجود دارند که هر یک ویژگی‌های
+خاصی دارند و در همین بخش به آن‌ها اشاره خواهیم کرد اما محیط‌های فوق بسیار متداول
+هستند به همین دلیل کوتاه‌نویسی‌هایی برای این محیط‌ها در \lr{\LaTeX} وجود دارد.
+به این ترتیب که به جای تعیین ابتدا و انتهای محیط \lr{math} می‌توان از دو علامت
+$\$$ استفاده کرد. یعنی اینکه برای نوشتن فرمول‌ها در یک خط می‌توان فرمول را بین
+دو علامت $\$$ قرار داد. به جای محیط‌های \lr{displaymath} و \lr{equation*} نیز
+می‌توان از \lr{\textbackslash [} و \lr{\textbackslash ]} استفاده کرد. به مثال
+زیر توجه کنید:
+
+\begin{latex}
+The simple formula, $a+a=2a$, is a text formula that write
+in a text line. But the below formula is a seperate formula:
+\[
+a+a=2a
+\]
+This formula can write as bellow:
+\[
+a+a=2a
+\]
+These formuls are in a seperate line and in the center of line.
+\end{latex}
+
+نتیجه این کد \lr{\LaTeX} به صورت زیر خواهد بود. مشاهده می‌شود که خروجی مثال زیر
+دقیقا مثل خروجی مثال قبل است.
+
+\begin{latin}
+The simple formula, $a+a=2a$, is a text formula that write
+in a text line. But the below formula is a seperate formula:
+\[
+a+a=2a
+\]
+This formula can write as bellow:
+\[
+a+a=2a
+\]
+These formuls are in a seperate line and in the center of line.
+\end{latin}
+
+فعلا همین دو محیط را در خاطر داشته باشید. در ادامه به طور خلاصه نحوه نوشتن
+نمادها و علامت‌های مختلف در فرمول‌‌های \lr{\LaTeX} و قواعد مربوط به فرمول‌نویسی
+راشرح می‌دهیم و پس از آن در قسمت \ref{sec:formula-environments} محیط‌های دیگر را
+معرفی می‌کنیم.
+
+% TODO: Hadi - 1391: زیربخش های زیر تکمیل شود تا این فصل به اتمام برسد.
+% Symbols
+\subsection{نمادهای ریاضی}
+در ریاضیات نمادها و نشانه‌های بسیار زیادی وجود دارد و برای وارد کردن هر یک از
+نمادها در فرمول مجبورید دستور مربوط به آن نماد را وارد کنید. برای برخی نمادهای
+متداول، همان حرف مربوط به آن نماد کافی است. این دسته از نمادها را در زیر
+می‌بینید:
+\begin{latex}
++ - = ! / ( ) [ ] < > | ' :
+\end{latex} 
+اما برای نمادهای دیگر (مثل حروف یونانی، عملگرهای مجموعه‌ای، رابطه‌ای، منطقی و
+غیره) باید دستور خاص آن نماد را بنویسید که البته تعداد این نمادها و در نتیجه
+دستورهایی که باید به خاطر سپرد بسیار زیاد است. در قسمت‌های بعدی دستورات مربوط به
+نمادهایی چون حروف یونانی، عملگرها، توان، انتگرال، جذر و غیره که پرکاربرد هستند
+شرح داده می‌شوند. اگر نماد مورد نظر خود را در این قسمت از این کتاب نیافتید
+مجبورید جستجو کرده و دستور مربوط به آن نماد را بیابید. خوشبختانه روش‌هایی وجود
+دارد که جستجوی دستور مربوط به نمادها را ساده می‌کند. یک راه سریع، جالب و ساده
+مراجعه به تارنمای \lr{Detexify} است\LTRfootnote{http://detexify.kirelabs.org/}. در این تارنما محلی
+وجود دارد که کافی است برای یافتن دستور مربوط به نماد مورد نظر خود، آن نماد را در
+قسمت تعیین شده ترسیم کنید! راه دیگر مراجعه به فهرست جامع نمادهای
+\lr{\LaTeX}
+است\LTRfootnote{http://www.ctan.org/tex-archive/info/symbols/comprehensive/symbols-letter.pdf}.
+در ادامه نحوه وارد کردن برخی نمادها و نشانه‌ها بیان می‌شود.
+
+% Greek Letters
+\subsection{حروف یونانی}
+استفاده از حروف یونانی در فرمول‌ها و روابط ریاضی بسیار رایج است. برای وارد کردن
+یک حرف یونانی کافی است نام آن حرف یونانی (مثلا \lr{sigma}، \lr{delta} و
+\lr{alpha}) را بعد از یک علامت \lr{\textbackslash} بنویسید. اگر حرف اول نام را
+با حرف کوچک\LTRfootnote{Lowercase}  بنویسید حرف یونانی به صورت حرف کوچک ظاهر
+می‌شود. برای وارد کردن حرف یونانی به صورت حرف بزرگ\LTRfootnote{Uppercase} کافی
+است هنگام نوشتن نام آن حرف یونانی بعد از علامت \lr{\textbackslash} حرف اول نام
+را به صورت بزرگ بنویسید. در زیر مثالی از وارد کردن چند حرف یونانی نشان داده شده است:
+
+\begin{latex}
+\[
+\alpha, \beta, \gamma, \Gamma, \pi, \Pi, \phi, \varphi, \Phi
+\]
+\end{latex}
+\[
+\alpha, \beta, \gamma, \Gamma, \pi, \Pi, \phi, \varphi, \Phi
+\]
+
+\begin{note}
+حروف یونانی پی ($\pi$، $\varpi$)، اپسیلون ($\epsilon$، $\varepsilon$)، تتا
+($\theta$، $\vartheta$)، فی ($\phi$، $\varphi$)، رو ($\rho$، $\varrho$) و سیگما
+($\sigma$، $\varsigma$) به دو صورت نوشته می‌شوند. برای وارد کردن شکل دوم این
+حروف کافی است قبل از نام (یعنی بعد از علامت \lr{\textbackslash} و قبل از نام)
+کلمه \lr{var} نوشته شود (جدول \ref{greek-letters-table} را ببینید).
+\end{note}
+
+\begin{note}
+برخی حروف یونانی در حالت بزرگ درست شبیه حروف لاتین هستند. به عنوان مثال حروف
+یونانی آلفا و بتا در حالت بزرگ به صورت \lr{A} و \lr{B} نمایش می‌یابند.
+به همین دلیل در \lr{\LaTeX} برای این حروف، شکل بزرگ تعریف نشده و برای استفاده از
+آن‌ها باید از همان حروف لاتین استفاده کنید. در جدول \ref{greek-letters-table}
+فهرستی از حروف یونانی آورده شده است. در این جدول خانه‌هایی که شکل متناظر برای
+آن‌ها وجود ندارد همان حروفی هستند که شکل متناظر آن‌ها مثل همان حروف لاتین هستند.
+بنابراین نباید از دستور آن‌ها استفاده شود. مثلا برای نوشتن حرف آلفا در حالت بزرگ
+باید از حرف لاتین \lr{A} استفاده کرد.
+\end{note}
+
+
+در جدول \ref{greek-letters-table} فهرست تقریبا کاملی از حروف یونانی و دستورات لازم برای وارد کردن
+آن‌ها آورده شده است.
+
+\begin{table}
+\begin{latin}
+\centering
+\begin{tabular}{|l|c||l|c||l|c|}
+\hline
+\rl{دستور}					&	\rl{نمایش}	&	\rl{دستور}					&	\rl{نمایش}	&	\rl{دستور}					&	\rl{نمایش}	\\ \hline\hline
+\textbackslash Alpha 		&		 		&	\textbackslash Iota 		&				&	\textbackslash rho			&	$\rho$		\\ \hline
+\textbackslash alpha		&	$\alpha$	&	\textbackslash iota 		& 	$\iota$		&	\textbackslash varrho 		&   $\varrho$	\\ \hline
+\textbackslash Beta 		&  			 	&	\textbackslash Kappa  		& 				& 	\textbackslash Sigma 		&	$\Sigma$	\\ \hline
+\textbackslash beta			&	$\beta$		&	\textbackslash kappa  		&	$\kappa$	&	\textbackslash sigma 		&	$\sigma$	\\ \hline
+\textbackslash Gamma		&	$\Gamma$	&	\textbackslash Lambda  		&	$\Lambda$ 	&	\textbackslash varsigma  	& 	$\varsigma$	\\ \hline
+\textbackslash gamma		&	$\gamma$	&	\textbackslash lambda 		&	$\lambda$	&	\textbackslash Tau 			&				\\ \hline
+\textbackslash Delta 		&	$\Delta$	&	\textbackslash Mu 			&				&	\textbackslash tau 			&	$\tau$		\\ \hline
+\textbackslash delta		&	$\delta$	&	\textbackslash mu 			&	$\mu$		&	\textbackslash Upsilon 		&	$\Upsilon$	\\ \hline
+\textbackslash Epsilon		&				&	\textbackslash Nu 			&				& 	\textbackslash upsilon 		&	$\upsilon$	\\ \hline
+\textbackslash epsilon		&	$\epsilon$	&	\textbackslash nu 			& 	$\nu$		&	\textbackslash Phi 			&	$\Phi$		\\ \hline
+\textbackslash varepsilon	&	$\varepsilon$&	\textbackslash Xi  			&	$\Xi$		&	\textbackslash phi 			&	$\phi$		\\ \hline
+\textbackslash Zeta			&				&	\textbackslash xi 			& 	$\xi$		&	\textbackslash varphi 		&	$\varphi$	\\ \hline
+\textbackslash zeta			&	$\zeta$		&	\textbackslash Omicron  	&				&	\textbackslash Chi 			&				\\ \hline
+\textbackslash Eta			&				&	\textbackslash omicron  	&				&	\textbackslash chi 			&	$\chi$		\\ \hline
+\textbackslash eta			&	$\eta$		&	\textbackslash Pi 			&	$\Pi$		&	\textbackslash Psi 			&	$\Psi$		\\ \hline
+\textbackslash Theta		&	$\Theta$	&	\textbackslash pi 			&	$\pi$		&	\textbackslash psi 			&	$\psi$		\\ \hline	
+\textbackslash theta		&	$\theta$	&	\textbackslash varpi 		&	$\varpi$	&	\textbackslash Omega 		&	$\Omega$	\\ \hline
+\textbackslash vartheta		&	$\vartheta$	&	\textbackslash Rho 			&				&	\textbackslash omega		&	$\omega$	\\ \hline
+\end{tabular}
+\end{latin}
+\caption{حروف یونانی به همراه دستور مربوط به حروف}
+\label{greek-letters-table}
+\end{table}
+
+% Powers and indices
+\subsection{بالانویس و پایین‌نویس (توان و اندیس)}
+توان و اندیس در روابط ریاضی متناظر بالانویس و پایین‌نویس در متن‌های معمولی است.
+برای توان از علامت شاپو ( \lr{$\^$} ) و برای اندیس نیز از علامت
+زیرخط\LTRfootnote{Underscore} (\lr{\_}) استفاده می‌شود. نکته اینکه در صورتی که
+بخواهید چند کاراکتر (مثلا یک عبارت یا کلمه) را به عنوان اندیس یا توان استفاده
+کنید باید تمام آن‌ها را بعد از علامت اندیس یا توان بین دو آکولاد (یعنی \{ و\})
+قرار دهید. در زیر مثال‌هایی از اندیس و توان مشاهده می‌شود:
+
+\begin{latex}
+\[
+F_{n+1} = k^2 + F_n^2 - F_{n-1} + k^{n^2+n+1}_n + F^{n_3}
+\]
+\end{latex}
+
+\[
+ F_{n+1} = k^2 + F_n^2 - F_{n-1} + k^{n^2+n+1}_n + F^{n_3}
+\]
+
+% Operators
+\subsection{عملگرها}
+تعداد بسیار زیادی عملگر یا همان عمل ریاضی وجود دارد که در اینجا به مهم‌ترین و
+پرکاربردترین آن‌‌ها اشاره می‌شود. عملگرها را به دسته‌های محاسباتی و منطقی،
+رابطه‌ای، پیکانی، مجموعه‌ای و متفرقه تقسیم کرده‌ایم و در ادامه دستور وارد کردن
+عملگرهای هر یک از این دسته‌ها را شرح می‌دهیم. توجه شود که اغلب این عملگرها دو
+عملوندی هستند. بنابراین باید در طرف راست و چپ آن‌ها عباراتی به عنوان عملوند قرار
+داده شود.
+\subsubsection{محاسباتی و منطقی}
+مهم‌ترین عملگرهای ریاضی همین دسته است که شامل چهار عمل اصلی «جمع»، «ضرب»،
+«تفریق»، «تقسیم» و عمل‌های منطقی «یا\LTRfootnote{OR}»، «و\LTRfootnote{AND}»،
+«نقیض\LTRfootnote{NOT}»، «یای انحصاری\LTRfootnote{XOR}» و عملگرهای بسیار دیگر
+است. در جدول \ref{math-logic-operators-table} این علائم و دستور مربوط به هر یک برای وارد کردن در فرمول‌های
+\lr{\LaTeX} آورده شده است.
+
+\begin{table}
+\begin{latin}
+\centering
+\begin{tabular}{|l|c||l|c||l|c||l|c||l|c|}
+\hline
+\rl{دستور}				&	\rl{نمایش}	&	\rl{دستور}					&	\rl{نمایش}	&	\rl{دستور}					&	\rl{نمایش}	&	\rl{دستور}						&	\rl{نمایش}		&	\rl{دستور}				&	\rl{نمایش}		\\ \hline\hline
++					 	&	+	 		&	\textbackslash boxdot 		&	$\boxdot$	&	\textbackslash dotplus		&	$\dotplus$	&	\textbackslash bigtriangledown	&	$\bigtriangledown$&	\textbackslash bigcap	&	$\bigcap$		\\ \hline
+- 						&  	-			&	\textbackslash boxminus  	& 	$\boxminus$	& 	\textbackslash mp	 		&	$\mp$		&	\textbackslash bigtriangleup	&	$\bigtriangleup$&	\textbackslash bigcup	&	$\bigcup$		\\ \hline
+/						&	/			&	\textbackslash boxplus  	&	$\boxplus$	&	\textbackslash pm 			&	$\pm$		&	\textbackslash triangleleft		&	$\triangleleft$	&	\textbackslash bigodot	&	$\bigodot$		\\ \hline
+\textbackslash div		&	$\div$		&	\textbackslash boxtimes 	&	$\boxtimes$	&	\textbackslash land \rl{یا} \textbackslash wedge 		&	$\land$		&	\textbackslash triangleright	&	$\triangleright$	&	\textbackslash bigoplus	&	$\bigoplus$	\\ \hline
+*						&	*			&	\textbackslash odot 		& 	$\odot$		&	\textbackslash barwedge		&   $\barwedge$	&	\textbackslash cap				&	$\cap$			&	\textbackslash bigotimes&	$\bigotimes$	\\ \hline
+\textbackslash times	&	$\times$	&	\textbackslash ominus  		&	$\ominus$ 	&	\textbackslash land \rl{یا} \textbackslash vee  		& 	$\lor$		&	\textbackslash cup		&	$\cup$&	\textbackslash bigsqcup	&	$\bigsqcup$	\\ \hline
+\textbackslash ltimes 	&	$\ltimes$	&	\textbackslash oplus		&	$\oplus$	&	\textbackslash veebar 		&	$\veebar$	&	\textbackslash sqcap			&	$\sqcap$		&	\textbackslash bigvee	&	$\bigvee$		\\ \hline
+\textbackslash rtimes	&	$\rtimes$	&	\textbackslash otimes		&	$\otimes$	&	\textbackslash dagger 		&	$\dagger$	&	\textbackslash sqcup			&	$\sqcup$		&	\textbackslash bigwedge	&	$\bigwedge$		\\ \hline
+\textbackslash star		&	$\star$		&	\textbackslash oslash		&	$\oslash$	& 	\textbackslash ddagger 		&	$\ddagger$	&	\textbackslash bmod				&	$\bmod$			&							&					\\ \hline
+\end{tabular}
+\end{latin}
+\caption{عملگرهای محاسباتی و منطقی به همراه دستور مربوط به عملگرها}
+\label{math-logic-operators-table}
+\end{table}
+
+\begin{note}
+برای عملگر پیمانه\LTRfootnote{Madular operator} (همنهشتی) دو دستور
+(\lr{\textbackslash bmod} و \lr{\textbackslash pmod}) وجود دارد.
+در مثال زیر این دو دستور و نحوه نمایش آن‌ها مشاهده می‌شود.
+\end{note}
+\begin{latex}
+\[
+ a \bmod b
+\]
+\[
+x \equiv a \pmod b
+\]
+\end{latex}
+\[
+ a \bmod b
+\]
+\[
+x \equiv a \pmod b
+\]
+
+\subsubsection{رابطه‌ای}
+عملگرهای رابطه‌ای شامل «بزرگتر»، «کوچکتر»، «مساوی» و مشتقات این عملگرهاست. در
+جدول \ref{relational-operators-table} عملگرهای پرکاربرد و مهم این دسته آورده شده است.
+
+\begin{table}
+\begin{latin}
+\centering
+\begin{tabular}{|l|c||l|c||l|c||l|c|}
+\hline
+% TODO: Hadi - 6-1391: علامت‌ها در جدول بر اساس ترتیبی خاص مرتب شود. از نظر
+% ستونی مرتب هست: ستون اول علامتهای بزرگتری، ستون دوم کوچکتری و ستون سوم مساوی
+\rl{دستور}					&	\rl{نمایش}	&	\rl{دستور}					&	\rl{نمایش}	&	\rl{دستور}					&	\rl{نمایش}	&	\rl{دستور}					&	\rl{نمایش}	\\ \hline\hline
+<					 		&	<	 		&	>							&	>			&	= 							&  	=			&	\textbackslash triangleq 	&	$\triangleq$\\ \hline
+\textbackslash leq  \rl{یا} \textbackslash le	&	$\leq$		&	\textbackslash geq  \rl{یا} \textbackslash ge			& 	$\geq$		& 	\textbackslash neq \rl{یا} \textbackslash ne 	&	$\neq$		&	\textbackslash circeq		&	$\circeq$		\\ \hline
+\textbackslash leqq			&	$\leqq$		&	\textbackslash geqq  		&	$\geqq$ 	&	\textbackslash cong			&	$\cong$		&	\textbackslash propto		&	$\propto$	\\ \hline
+\textbackslash leqslant		&	$\leqslant$	&	\textbackslash geqslant		&	$\geqslant$	& 	\textbackslash ncong 		&	$\ncong$	&	\textbackslash varpropto	&	$\varpropto$\\ \hline
+\textbackslash ll	 		&	$\ll$		&	\textbackslash gg			&	$\gg$		&	\textbackslash sim			&	$\sim$		&								&				\\ \hline
+\textbackslash lll  \rl{یا} \textbackslash llless			&   $\lll$		&	\textbackslash ggg  \rl{یا} \textbackslash gggtr			&	$\ggg$		&	\textbackslash nsim			&	$\nsim$		&								&				\\ \hline
+\textbackslash lneq  		& 	$\lneq$		&	\textbackslash gneq			&	$\gneq$		&	\textbackslash simeq		&	$\simeq$	&								&				\\ \hline
+\textbackslash lneqq 		&	$\lneqq$	&	\textbackslash gneqq		&	$\gneqq$	&	\textbackslash backsim		&	$\backsim$	&								&				\\ \hline
+\textbackslash lesseqgtr 	&	$\lesseqgtr$&	\textbackslash gtreqless	&	$\gtreqless$&	\textbackslash backsimeq	&	$\backsimeq$&								&				\\ \hline
+\textbackslash lesseqqgtr 	&	$\lesseqqgtr$&	\textbackslash gtreqqless	&	$\gtreqqless$&	\textbackslash approx		&	$\approx$	&								&				\\ \hline
+\textbackslash lessgtr 		&	$\lessgtr$	&	\textbackslash gtrless		&	$\gtrless$	&	\textbackslash approxeq		&	$\approxeq$	&								&				\\ \hline
+\textbackslash lvertneqq	&	$\lvertneqq$&	\textbackslash gvertneqq	&	$\gvertneqq$&	\textbackslash thickapprox	&	$\thickapprox$&								&				\\ \hline
+\textbackslash nleq			&	$\nleq$		& 	\textbackslash ngeq 		&	$\ngeq$		&	\textbackslash thicksim  	& 	$\thicksim$	&								&				\\ \hline
+\textbackslash nleqq		&	$\nleqq$	& 	\textbackslash ngeqq 		&	$\ngeqq$	&	\textbackslash equiv		&	$\equiv$	&								&				\\ \hline
+\textbackslash nleqslant	&	$\nleqslant$&	\textbackslash ngeqslant 	&	$\ngeqslant$&	\textbackslash doteq		&	$\doteq$	&								&				\\ \hline
+\textbackslash nless		&	$\nless$	&	\textbackslash ngtr			&	$\ngtr$		&	\textbackslash doteqdot  \rl{یا} \textbackslash Doteq		&	$\doteqdot$	&								&				\\ \hline
+\end{tabular}
+\end{latin}
+\caption{عملگرهای رابطه‌ای به همراه دستور مربوط به عملگرها}
+\label{relational-operators-table}
+\end{table}
+
+\subsubsection{پیکانی}
+این دسته از عملگرها که اغلب عملگرهایی با دو عملوند هستند عملگرهایی مثل «نتیجه
+می‌دهد»، «استنتاج»، «اگر و تنها اگر» و غیره است. در جدول \ref{arrow-operators-table} عملگرهای
+پرکاربرد از این مجموعه آورده شده است.
+
+\begin{table}
+\begin{latin}
+\centering
+\begin{tabular}{|l|c||l|c||l|c||l|c|}
+\hline
+\rl{دستور}						&	\rl{نمایش}			&	\rl{دستور}						&	\rl{نمایش}			&	\rl{دستور}							&	\rl{نمایش}			&	\rl{دستور}						&	\rl{نمایش}			\\ \hline\hline
+\textbackslash circlearrowleft	&	$\circlearrowleft$	&	\textbackslash downdownarrows 	&	$\downdownarrows$	&	\textbackslash Leftarrow			&	$\Leftarrow$			&	\textbackslash nLeftarrow		&	$\nLeftarrow$	\\ \hline
+\textbackslash circlearrowright	&  	$\circlearrowright$	&	\textbackslash upuparrows  		& 	$\upuparrows$		& 	\textbackslash Longleftarrow		&	$\Longleftarrow$		&	\textbackslash nRightarrow		&	$\nRightarrow$	\\ \hline
+\textbackslash curvearrowleft	&	$\curvearrowleft$	&	\textbackslash leftleftarrows  	&	$\leftleftarrows$	&	\textbackslash Rightarrow			&	$\Rightarrow$			&	\textbackslash nLeftrightarrow	&	$\nLeftrightarrow$ \\ \hline
+\textbackslash curvearrowright	&	$\curvearrowright$	&	\textbackslash rightrightarrows	&	$\rightrightarrows$	&	\textbackslash Longrightarrow		&	$\Longrightarrow$		&	\textbackslash nleftarrow		&	$\nleftarrow$	\\ \hline
+\textbackslash leftharpoondown	&	$\leftharpoondown$	&	\textbackslash leftrightarrows 	& 	$\leftrightarrows$	&	\textbackslash leftrightarrow		&   $\leftrightarrow$		&	\textbackslash nrightarrow		&	$\nrightarrow$	\\ \hline
+\textbackslash leftharpoonup	&	$\leftharpoonup$	&	\textbackslash rightleftarrows	&	$\rightleftarrows$ 	&	\textbackslash Leftrightarrow		& 	$\Leftrightarrow$		&	\textbackslash nleftrightarrow	&	$\nleftrightarrow$\\ \hline
+\textbackslash rightharpoondown	&	$\rightharpoondown$	&	\textbackslash leftrightharpoons&	$\leftrightharpoons$&	\textbackslash longleftrightarrow	&	$\longleftrightarrow$	&	\textbackslash nearrow			&	$\nearrow$		\\ \hline
+\textbackslash rightharpoonup	&	$\rightharpoonup$	&	\textbackslash rightleftharpoons&	$\rightleftharpoons$&	\textbackslash Longleftrightarrow	&	$\Longleftrightarrow$	&	\textbackslash nwarrow			&	$\nwarrow$		\\ \hline
+\textbackslash downharpoonleft	&	$\downharpoonleft$	&	\textbackslash leftarrow \rl{یا} \textbackslash gets	&	$\leftarrow$			& 	\textbackslash Lleftarrow	 		&	$\Lleftarrow$			&	\textbackslash searrow			&	$\searrow$		\\ \hline
+\textbackslash downharpoonright	&	$\downharpoonright$	&	\textbackslash longleftarrow	&	$\longleftarrow$	& 	\textbackslash Rrightarrow	 		&	$\Rrightarrow$		&	\textbackslash swarrow			&	$\swarrow$		\\ \hline
+\textbackslash upharpoonleft	&	$\upharpoonleft$	&	\textbackslash rightarrow \rl{یا} \textbackslash to		&	$\rightarrow$			& 	\textbackslash mapsto 				&	$\mapsto$				&	\textbackslash twoheadleftarrow	&	$\twoheadleftarrow$ \\ \hline
+\textbackslash upharpoonright	&	$\upharpoonright$	&	\textbackslash longrightarrow	&	$\longrightarrow$	& 	\textbackslash longmapsto			&	$\longmapsto$			&	\textbackslash twoheadrightarrow&	$\twoheadrightarrow$ \\ \hline
+\end{tabular}
+\end{latin}
+\caption{عملگرهای پیکانی به همراه دستور مربوط به عملگرها}
+\label{arrow-operators-table}
+\end{table}
+
+\subsubsection{مجموعه‌ای}
+عملگرهای مجموعه‌ای مربوط به مجموعه‌هاست که شامل «اجتماع»، «اشتراک»، «عضویت» و
+غیره می‌شود. در جدول \ref{set-operators-table} عملگرهای مهم این دسته آورده شده
+است.
+
+\begin{table}
+\begin{latin}
+\centering
+\begin{tabular}{|l|c||l|c||l|c||l|c|}
+\hline
+\rl{دستور}					&	\rl{نمایش}	&	\rl{دستور}					&	\rl{نمایش}		&	\rl{دستور}						&	\rl{نمایش}		&	\rl{دستور}					&	\rl{نمایش}	\\ \hline\hline
+\textbackslash cap			&	$\cap$		&	\textbackslash supset 		&	$\supset$		&	\textbackslash varsupsetneqq	&	$\varsupsetneqq$&	\textbackslash Vdash		&	$\Vdash$	\\ \hline
+\textbackslash cup			&  	$\cup$		&	\textbackslash supseteq  	& 	$\supseteq$		& 	\textbackslash sqsubset			&	$\sqsubset$		&	\textbackslash Vvdash		&	$\Vvdash$	\\ \hline
+\textbackslash sqcap		&	$\sqcap$	&	\textbackslash supseteqq  	&	$\supseteqq$	&	\textbackslash sqsubseteq		&	$\sqsubseteq$	&	\textbackslash nvdash		&	$\nvdash$	\\ \hline
+\textbackslash sqcup		&	$\sqcup$	&	\textbackslash supsetneq	&	$\supsetneq$	&	\textbackslash sqsupset			&	$\sqsupset$		&	\textbackslash nvDash		&	$\nvDash$	\\ \hline
+\textbackslash bigcap		&	$\bigcap$	&	\textbackslash supsetneqq 	& 	$\supsetneqq$	&	\textbackslash sqsupseteq		&   $\sqsupseteq$	&	\textbackslash nVdash		&	$\nVdash$	\\ \hline
+\textbackslash bigcup		&	$\bigcup$	&	\textbackslash nsubseteq	&	$\nsubseteq$ 	&	\textbackslash in				& 	$\in$			&	\textbackslash nVDash		&	$\nVDash$	\\ \hline
+\textbackslash bigsqcup		&	$\bigsqcup$	&	\textbackslash nsubseteqq	&	$\nsubseteqq$	&	\textbackslash ni	\rl{یا} \textbackslash owns		&	$\ni$				&	\textbackslash perp			&	$\perp$		\\ \hline
+\textbackslash subset		&	$\subset$	&	\textbackslash nsupseteq	&	$\nsupseteq$	&	\textbackslash notin			&	$\notin$		&	\textbackslash mid			&	$\mid$		\\ \hline
+\textbackslash subseteq		&	$\subseteq$	&	\textbackslash nsupseteqq	&	$\nsupseteqq$	& 	\textbackslash dashv	 		&	$\dashv$		&	\textbackslash nmid			&	$\nmid$		\\ \hline
+\textbackslash subseteqq	&	$\subseteqq$&	\textbackslash varsubsetneq	&	$\varsubsetneq$	& 	\textbackslash vdash	 		&	$\vdash$		&	\textbackslash nparallel	&	$\nparallel$\\ \hline
+\textbackslash subsetneq	&	$\subsetneq$&	\textbackslash varsubsetneqq&	$\varsubsetneqq$& 	\textbackslash models 			&	$\models$		&	\textbackslash parallel		&	$\parallel$	\\ \hline
+\textbackslash subsetneqq	&	$\subsetneqq$&	\textbackslash varsupsetneq	&	$\varsupsetneq$	& 	\textbackslash vDash 			&	$\vDash$		&								&				\\ \hline
+\end{tabular}
+\end{latin}
+\caption{عملگرهای مجموعه‌ای به همراه دستور مربوط به عملگرها}
+\label{set-operators-table}
+\end{table}
+
+\subsubsection{متفرقه}
+در جدول \ref{other-symbols-table} تعدادی از نمادهایی که در روابط ریاضی و فرمول‌ها استفاده
+می‌شوند آورده شده است.
+
+\begin{table}
+\begin{latin}
+\centering
+\begin{tabular}{|l|c||l|c||l|c||l|c|}
+\hline
+\rl{دستور}					&	\rl{نمایش}	&	\rl{دستور}						&	\rl{نمایش}		&	\rl{دستور}				&	\rl{نمایش}	&	\rl{دستور}					&	\rl{نمایش}	\\ \hline\hline
+\textbackslash hbar			&	$\hbar$		&	\textbackslash eth 				&	$\eth$			&	\textbackslash infty	&	$\infty$	&	\textbackslash emptyset		&	$\emptyset$	\\ \hline
+\textbackslash hslash		&  	$\hslash$	&	\textbackslash angle  			& 	$\angle$		& 	\textbackslash forall	&	$\forall$	&	\textbackslash varnothing	&	$\varnothing$\\ \hline
+\textbackslash ell			&	$\ell$		&	\textbackslash measuredangle  	&	$\measuredangle$&	\textbackslash exists	&	$\exists$	&	\textbackslash triangle		&	$\triangle$	\\ \hline
+\textbackslash partial		&	$\partial$	&	\textbackslash \#				&	\#				&	\textbackslash nexists	&	$\nexists$	&	\textbackslash triangledown	&	$\triangledown$	\\ \hline
+\textbackslash mho			&	$\mho$		&	\textbackslash \& 				& 	\&				&	\textbackslash therefore&   $\therefore$&	\textbackslash nabla		&	$\nabla$	\\ \hline
+\end{tabular}
+\end{latin}
+\caption{نمادهای متفرقه پرکاربرد در روابط ریاضی به همراه دستور مربوط به آن‌ها}
+\label{other-symbols-table}
+\end{table}
+
+\subsection{نشانه‌گذاری روی حروف}
+گاهی در فرمول‌ها نیاز داریم روی برخی حروف علائمی خاص قرار دهیم. علائمی مثل نقطه،
+کلاه\LTRfootnote{Hat}، مد (تیلدا)، پریم و غیره. در جدول \ref{accent-table}
+نمونه‌هایی از این نوع علامت‌گذاری‌ها روی حروف و کلمات مشاهده می‌شود.
+
+\begin{table}
+\begin{latin}
+\centering
+\begin{tabular}{|l|c||l|c||l|c||l|c|}
+\hline
+\rl{دستور}					&	\rl{نمایش}	&	\rl{دستور}					&	\rl{نمایش}	&	\rl{دستور}						&	\rl{نمایش}			&	\rl{دستور}									&	\rl{نمایش}					\\ \hline\hline
+\textbackslash acute\{x\}	&	$\acute{x}$	&	\textbackslash vec\{x\}		&	$\vec{x}$	&	\textbackslash widetilde\{xxx\} &	$\widetilde{xxx}$	&	\textbackslash overleftarrow\{xxx\}			&	$\overleftarrow{xxx}$		\\ \hline
+\textbackslash grave\{x\}	&  	$\grave{x}$	&	\textbackslash dot\{x\}		& 	$\dot{x}$	& 	\textbackslash widehat\{xxx\}	&	$\widehat{xxx}$		&	\textbackslash underleftarrow\{xxx\}		&	$\underleftarrow{xxx}$		\\ \hline
+\textbackslash tilde\{x\}	&	$\tilde{x}$	&	\textbackslash ddot\{x\} 	&	$\ddot{x}$	&	\textbackslash overbrace\{xxx\} &	$\overbrace{xxx}$	&	\textbackslash overrightarrow\{xxx\}		&	$\overrightarrow{xxx}$		\\ \hline
+\textbackslash bar\{x\}		&	$\bar{x}$	&	\textbackslash dddot\{x\}	&	$\dddot{x}$	&	\textbackslash underbrace\{xxx\}&	$\underbrace{xxx}$	&	\textbackslash underrightarrow\{xxx\}		&	$\underrightarrow{xxx}$		\\ \hline
+\textbackslash breve\{x\}	&  	$\check{x}$	&						  		& 				& 	\textbackslash overline\{xxx\}	&	$\overline{xxx}$	&	\textbackslash overleftrightarrow\{xxx\}	&	$\overleftrightarrow{xxx}$	\\ \hline
+\textbackslash hat\{x\}		&  	$\hat{x}$	&								& 				& 	\textbackslash underline\{xxx\}	&	$\underline{xxx}$	&	\textbackslash underleftrightarrow\{xxx\}	&	$\underleftrightarrow{xxx}$	\\ \hline
+\end{tabular}
+\end{latin}
+\caption{نشانه‌گذاری‌های مختلف روی حروف، به همراه دستورات مربوطه}
+\label{accent-table}
+\end{table}
+
+اگرچه در این مثال‌ها از حرف \lr{x} استفاده شده است اما به جای آن می‌توان هر حرف
+دیگری را قرار داد (به عنوان مثال دستور \lr{\textbackslash tilde\{O\}} این
+نتیجه را خواهد داشت: $\tilde{O}$).
+
+\subsection{توابع}
+منظور از توابع، توابع شناخته شده ریاضی هستند که معمولا به صورت یک کلمه در روابط
+نوشته می‌شوند. به عنوان مثال توابع مثلثاتی: سینوس (\lr{sin})، کسینوس (\lr{cos})
+تانژانت (\lr{tan}) و \lr{\dots} و توابع لگاریتمی (\lr{log} یا \lr{ln}) و نمایی
+(\lr{exp}) از این موارد هستند. بسیاری از این توابع به صورت دستور از پیش تعریف
+شده در \lr{\LaTeX} وجود دارند. نمونه‌ای از یک رابطه ریاضی که از این توابع
+استفاده می‌کند در زیر مشاهده می‌شود:
+\begin{latex}
+\[
+ \exp(i \phi) = \cos(\phi) + i \sin(\phi)
+\]
+\end{latex}
+\[
+ \exp(i \phi) = \cos(\phi) + i \sin(\phi)
+\]
+
+در جدول \ref{function-table} نمونه‌هایی از دستورات تعریف شده برای توابع ریاضی آورده شده
+است.
+
+\begin{table}
+\begin{latin}
+\centering
+\begin{tabular}{|l|c||l|c||l|c||l|c|}
+\hline
+\rl{دستور}				&	\rl{نمایش}	&	\rl{دستور}			&	\rl{نمایش}	&	\rl{دستور}			&\rl{نمایش}	&	\rl{دستور}				&	\rl{نمایش}	\\ \hline\hline
+\textbackslash sin		&	$\sin$		&	\textbackslash sinh	&	$\sinh$		&	\textbackslash arg 	&	$\arg$	&	\textbackslash lg		&	$\lg$		\\ \hline
+\textbackslash cos		&  	$\cos$		&	\textbackslash cosh	& 	$\cosh$		& 	\textbackslash deg	&	$\deg$	&	\textbackslash ln		&	$\ln$		\\ \hline
+\textbackslash tan		&	$\tan$		&	\textbackslash tanh &	$\tanh$		&	\textbackslash det	&	$\det$	&	\textbackslash log		&	$\log$		\\ \hline
+\textbackslash cot		&	$\cot$		&	\textbackslash coth	&	$\coth$		&	\textbackslash dim	&	$\dim$	&	\textbackslash lim		&	$\lim$		\\ \hline
+\textbackslash arcsin	&  	$\arcsin$	&	\textbackslash sec	& 	$\sec$		& 	\textbackslash gcd	&	$\gcd$	&	\textbackslash liminf	&	$\liminf$	\\ \hline
+\textbackslash arccos	&  	$\arccos$	&	\textbackslash csc	& 	$\csc$		& 	\textbackslash inf	&	$\inf$	&	\textbackslash limsup	&	$\limsup$	\\ \hline
+\textbackslash arctan	&	$\arctan$	&	\textbackslash max	&	$\max$		&	\textbackslash sup	&	$\sup$	&	\textbackslash varliminf&	$\varliminf$\\ \hline
+						&  				&	\textbackslash min	& 	$\min$		& 	\textbackslash exp	&	$\exp$	&	\textbackslash varlimsup&	$\varlimsup$\\ \hline
+\end{tabular}
+\end{latin}
+\caption{توابعی که در \lr{\LaTeX} به صورت دستور از پیش تعریف شده وجود دارند.}
+\label{function-table}
+\end{table}
+
+برای برخی از عملگرها و توابع مثل تابع حد (\lr{lim}) زیرنویس زیر کلمه مربوط به
+تابع قرار می‌گیرد. در زیر نمونه‌ای از زیرنویس، برای تابع حد را مشاهده می‌کنید:
+
+\begin{latex}
+\[
+ \lim_{x \to \infty} \exp(-x) = 0
+\]
+\end{latex}
+\[
+ \lim_{x \to \infty} \exp(-x) = 0
+\]
+
+\subsection{کسر و دوجمله‌ای}
+با استفاده از دستور \lr{\textbackslash frac\{\textit{up}\}\{\textit{down}\}}
+می‌توان یک کسر ایجاد کرد. به جای \lr{\textit{up}} عبارت صورت و به جای
+\lr{\textit{down}} مخرج کسر قرار داده می‌شود. ضریب دوجمله‌ای (که به آن تابع
+انتخاب نیز می‌گویند) را نیز می‌توان با استفاده از دستور \lr{\textbackslash
+binom\{\textit{up}\}\{\textit{down}\}} در فرمول وارد کرد. در زیر مثالی از این دو
+دستور آورده شده است:
+\begin{latex}
+\[
+ \frac{n!}{k!(n-k)!} = \binom{n}{k}
+\]
+\end{latex}
+\[
+ \frac{n!}{k!(n-k)!} = \binom{n}{k}
+\]
+	
+\begin{note}
+برای ضریب دوجمله‌ای می‌توان از دستور \lr{\textbackslash choose} هم استفاده کرد.
+این دستور نیازی به بسته \lr{amsmath} ندارد. در حالیکه دستور \lr{\\binom} در بسته
+\lr{\\amsmath} تعریف شده است. برای کسرها نیز می‌توان از دستور \lr{\\over}
+استفاده کرد که نیازی به بسته \lr{amsmath} ندارد. در حالیکه دستور \lr{\\frac} در
+بسته \lr{amsmath} تعریف شده است.
+دستورات \lr{\\choose} و \lr{\\over} به صورت زیر
+استفاده می‌شوند:
+\end{note}
+\begin{latex}
+\[
+  {n! \over k!(n-k)!} = {n \choose k}
+\]
+\end{latex}
+\[
+  {n! \over k!(n-k)!} = {n \choose k}
+\]
+دستور \lr{\textbackslash frac} را می‌توان به صورت تودرتو نیز به کار برد. به
+عنوان مثال برای مواقعی که صورت یک کسر خودش یک کسر دیگر است. به مثال زیر توجه
+کنید:
+\begin{latex}
+\[
+ \frac{\frac{1}{x}+\frac{1}{y}}{y-z}
+\]
+\end{latex}
+\[
+ \frac{\frac{1}{x}+\frac{1}{y}}{y-z}
+\]
+
+\begin{note}
+برای کسرهای نسبتا ساده می‌توان کسر را به صورتی زیباتری نشان داد. برای این کار از
+دستورات توان و اندیس استفاده می‌شود. مثال زیر نمونه‌ای از این نوع کسر است:
+\end{note}
+\begin{latex}
+\[
+ ^3/_7
+\]
+\end{latex}
+\[
+ ^3/_7
+\]
+
+\subsection{جذر و ریشه}
+برای نوشتن جذر در فرمول‌ها از دستور \lr{\textbackslash sqrt} استفاده می‌شود. این
+دستور روی عبارت قرار گرفته بین آکولادها علامت رادیکال قرار می‌دهد.
+دستور \lr{\textbackslash sqrt} یک آرگومان اختیاری هم دارد که با استفاده از آن
+می‌توان ریشه رادیکال را تعیین کرد. به مثال‌های زیر توجه کنید:
+\begin{latex}
+\[
+\sqrt{\frac{a}{b}}
+\]
+\end{latex}
+\[
+\sqrt{\frac{a}{b}}
+\]
+\begin{latex}
+\[
+\sqrt[n]{1+x+x^2+x^3+\ldots}
+\]
+\end{latex}
+\[
+\sqrt[n]{1+x+x^2+x^3+\ldots}
+\]
+	
+\subsection{جمع و انتگرال}
+برای وارد کردن علامت جمع (سیگما) از دستور \lr{\textbackslash sum} استفاده
+می‌شود. برای تعیین کران‌های بالا و پایین این دستور نیز از عملگرهای اندیس و
+توان می‌توان استفاده کرد. عملگر اندیس (\lr{$\_$}) برای تعیین کران پایین و عملگر
+توان ( \lr{$\^$} ) برای تعیین کران بالا. به مثال زیر توجه کنید:
+
+\begin{latex}
+\[
+ \sum_{i=1}^{10} t_i
+\]
+\end{latex}
+\[
+ \sum_{i=1}^{10} t_i
+\]
+
+برای وارد کردن انتگرال نیز از دستور \lr{\textbackslash int} استفاده می‌شود. برای
+تعیین کران بالا و پایین این دستور نیز می‌توان از عملگرهای اندیس و توان استفاده
+کرد. علاوه بر این، برای نمایش متغیر انتگرال‌گیری همراه با علامت \lr{d} بهتر
+است از دستور \lr{\textbackslash mathrm\{\}} استفاده شود. در زیر نمونه‌ای از
+دستور انتگرال آورده شده است:
+\begin{latex}
+\[
+ \int_0^\infty e^{-x} \mathrm{d}x
+\]
+\end{latex}
+\[
+ \int_0^\infty e^{-x} \mathrm{d}x
+\]
+در جدول \ref{sum-and-integral-table} نمونه‌های دیگری از این عملگرها به همراه
+دستوراتشان آورده شده است.
+
+\begin{table}
+\begin{latin}
+\centering
+\begin{tabular}{|l|c||l|c||l|c||l|c|}
+\hline
+\rl{دستور}				&	\rl{نمایش}	&	\rl{دستور}				&	\rl{نمایش}		&	\rl{دستور}				&\rl{نمایش}		&	\rl{دستور}				&	\rl{نمایش}	\\ \hline\hline
+\textbackslash sum		&	$\sum$		&	\textbackslash bigotimes&	$\bigotimes$	&	\textbackslash bigsqcup &	$\bigsqcup$	&	\textbackslash iint		&	$\iint$		\\ \hline
+\textbackslash prod		&  	$\prod$		&	\textbackslash bigodot	& 	$\bigodot$		& 	\textbackslash bigsqcup	&	$\bigsqcup$	&	\textbackslash iiint	&	$\iiint$	\\ \hline
+\textbackslash coprod	&	$\coprod$	&	\textbackslash bigcup 	&	$\bigcup$		&	\textbackslash int		&	$\int$		&	\textbackslash iiiint	&	$\iiiint$	\\ \hline
+\textbackslash bigoplus	&	$\bigoplus$	&	\textbackslash bigcap	&	$\bigcap$		&	\textbackslash oint		&	$\oint$		&	\textbackslash idotsint	&	$\idotsint$	\\ \hline
+\end{tabular}
+\end{latin}
+\caption{انواع عملگرهای جمع و انتگرال و عملگرهای مشابه آن‌ها به همراه دستور
+مربوط به هر یک.}
+\label{sum-and-integral-table}
+\end{table}
+
+\subsection{کمانک‌ها و پرانتزها}
+در بسیاری از فرمول‌ها استفاده از پرانتز، براکت و سایر کمانک‌ها ضروری است. بدون
+استفاده از پرانتز بسیاری از فرمول‌ها مبهم خواهند بود. به علاوه برخی ساختارهای
+ریاضی مثل ماتریس‌ها بین چنین جداکننده‌هایی قرار می‌گیرند. انواع مختلفی از
+این علائم وجود دارند که برخی از آن‌ها در جدول \ref{parantesis-brakets-table}
+آورده شده‌اند.
+
+\begin{table}
+\begin{latin}
+\centering
+\begin{tabular}{|l|c||l|c||l|c|}
+\hline
+\rl{دستور}														&	\rl{نمایش}	&	\rl{دستور}													&	\rl{نمایش}				&	\rl{دستور}												&	\rl{نمایش}					\\ \hline\hline
+( a )															&	$( a )$		&	\textbackslash| e \textbackslash| \rl{یا} \textbackslash lVert e \textbackslash rVert &	$\| e \|$				&	\textbackslash ulcorner i \textbackslash urcorner		&	$\ulcorner i \urcorner$		\\ \hline
+[ b ]															&  	$[ b ]$		&	\textbackslash langle f \textbackslash rangle				& 	$\langle f \rangle$		& 	\textbackslash lgroup j \textbackslash rgroup			&	$\lgroup j \rgroup$			\\ \hline
+\{ c \}	\rl{یا} \textbackslash lbrace c \textbackslash rbrace	&	$\{ c \}$	&	\textbackslash lfloor g \textbackslash rfloor				&	$\lfloor g \rfloor$		&	\textbackslash lmoustache k \textbackslash rmoustache	&	$\lmoustache k \rmoustache$	\\ \hline
+| d |	\rl{یا} \textbackslash lvert d \textbackslash rvert		&	$| d |$		&	\textbackslash lceil h \textbackslash rceil 				&	$\lceil h \rceil$		&															&								\\ \hline
+\end{tabular}
+\end{latin}
+\caption{انواع مختلفی از پرانتزها، براکت‌ها و کمانک‌ها به همراه دستور مربوط به هر یک.}
+\label{parantesis-brakets-table}
+\end{table}
+
+% Automatic sizing
+\subsubsection{اندازه کمانک‌ها و پرانتزها}
+\label{paranteses-and-brakets-subsubsection}
+در اغلب موارد نیاز داریم بزرگی یا کوچکی کمانک یا پرانتز مورد استفاده با توجه
+به فرمول تعیین شود. به عنوان مثال فرض کنید یک کسر داریم و می‌خواهیم هنگامی که
+دور این کسر پرانتز قرار می‌دهیم اندازه پرانتز به گونه‌ای باشد که با کسر تناسب
+داشته باشد. در \lr{\LaTeX} با استفاده از دستورات \lr{\textbackslash left} و
+\lr{\textbackslash right} این کار به صورت خودکار انجام می‌شود. به مثال‌های زیر
+توجه کنید. دقت شود که چگونه با استفاده از این دو دستور اندازه کمانک به کار رفته
+متناسب با فرمول تغییر می‌یابد.
+\begin{latex}
+\[
+ \left( \frac{x^2}{y^3} \right) , ( \frac{x^2}{y^3} ) ,
+ \left\{ \frac{x^2}{y^3} \right\} , \{ \frac{x^2}{y^3} \} ,
+ \left \lmoustache \frac{k}{\frac{l}{m}} \right \rmoustache ,
+ \left \lgroup \frac{k}{\frac{l}{m}} \right \rgroup 
+\]
+\end{latex}
+
+\[
+ \left( \frac{x^2}{y^3} \right) , ( \frac{x^2}{y^3} ) ,
+ \left\{ \frac{x^2}{y^3} \right\} , \{ \frac{x^2}{y^3} \} ,
+ \left \lmoustache \frac{k}{\frac{l}{m}} \right \rmoustache ,
+ \left \lgroup \frac{k}{\frac{l}{m}} \right \rgroup  
+\]
+
+تقریبا تمام کمانک‌های جدول \ref{parantesis-brakets-table} را می‌توان همراه با
+دستورات \lr{\textbackslash left} و \lr{\textbackslash right} به کار برد.
+
+در صورتی که بخواهیم فقط در یک طرف از یک فرمول یک کمانک قرار دهیم و در طرف دیگر
+آن کمانک متناظر آن را قرار ندهیم می‌توان از یک علامت نقطه به جای کمانکی که باید
+حذف شود استفاده کرد. مثال زیر نمونه‌ای از این موضوع را نشان می‌دهد:
+\begin{latex}
+\[
+ \left.\frac{x^3}{3}\right|_0^1
+\]
+\end{latex}
+
+\[
+ \left. \frac{x^3}{3} \right|_0^1
+\]
+
+حتی ممکن است کمانک به کار رفته در یک طرف با کمانک به کار رفته در طرف دیگر همسان
+نباشد:
+
+\begin{latex}
+\[
+ \left| \frac{x + y}{\sqrt{2}} \right \rangle
+\]
+\end{latex}
+
+\[
+ \left| \frac{x + y}{\sqrt{2}} \right \rangle
+\]
+
+% Manual sizing
+علاوه بر تغییر اندازه خودکار که با دستورات \lr{\textbackslash left} و
+\lr{\textbackslash right} انجام می‌شود امکان تغییر اندازه کمانک‌ها به صورت دستی
+نیز وجود دارد. دستورات \lr{\textbackslash big} ، \lr{\textbackslash Big} ،
+\lr{\textbackslash bigg} و \lr{\textbackslash Bigg} بدین منظور استفاده می‌شوند.
+در زیر مثال‌هایی از استفاده از این دستورات آورده شده است:
+\begin{latex}
+\[
+ ( \big( \Big( \bigg( \Bigg(
+\]
+\end{latex}
+\[
+ ( \big( \Big( \bigg( \Bigg(
+\]
+\begin{latex}
+\[
+ \lfloor \big\lfloor \Big\lfloor \bigg\lfloor \Bigg\lfloor
+\]
+\end{latex}
+\[
+ \lfloor \big\lfloor \Big\lfloor \bigg\lfloor \Bigg\lfloor
+\]
+
+% Matrices and arrays
+\subsection{ماتریس و آرایه}
+در کلی‌ترین حالت برای نوشتن یک ماتریس از محیط \lr{matrix} در \lr{\LaTeX} استفاده
+می‌شود. برای جداکردن سطرها ازعلامت (\lr{\textbackslash\textbackslash}) و برای
+قرار دادن درایه‌های یک سطر در ستون‌های مختلف از علامت $\&$ استفاده می شود.
+\begin{latex}
+\[
+ \begin{matrix}
+  a & b & c \\
+  d & e & f \\
+  g & h & i
+ \end{matrix}
+\]
+\end{latex}
+\[
+ \begin{matrix}
+  a & b & c \\
+  d & e & f \\
+  g & h & i
+ \end{matrix}
+\]
+
+% برای هم راستا کردن درایه‌های ماتریس می‌توان از محیط \lr{matrix$^*$} استفاده کرد.
+% در زیر مثالی از این دو محیط آورده شده است. دقت شود که داده‌های ماتریس در محیط
+% \lr{matrix$^*$} چگونه تراز شده‌اند.
+% \begin{latex}
+% \[
+%  \begin{matrix}
+%   -1 & 3 \\
+%   2 & -4
+%  \end{matrix}
+%  =
+%  \begin{matrix*}[r]
+%   -1 & 3 \\
+%   2 & -4
+%  \end{matrix*}
+% \]
+% \end{latex}
+% \[
+%  \begin{matrix}
+%   -1 & 3 \\
+%   2 & -4
+%  \end{matrix}
+%  =
+%  \begin{matrix*}[r]
+%   -1 & 3 \\
+%   2 & -4
+%  \end{matrix*}
+% \]
+
+معمولا ماتریس‌ها بین دو پرانتز یا نوع دیگری از کمانک‌ها قرار داده می‌شوند. برای
+این کار طبق آنچه در قسمت \ref{paranteses-and-brakets-subsubsection} گفته شد از
+دستورات \lr{\textbackslash left} و \lr{\textbackslash right} استفاده می‌شود. به
+عنوان مثال در کد زیر ماتریس قبل را بین دو پرانتز و دو کروشه قرار داده‌ایم:
+
+\begin{latex}
+\[
+ \left(
+ \begin{matrix}
+  a & b & c \\
+  d & e & f \\
+  g & h & i
+ \end{matrix}
+ \right)
+ \left[
+ \begin{matrix}
+  a & b & c \\
+  d & e & f \\
+  g & h & i
+ \end{matrix}
+ \right]
+\]
+\end{latex}
+\[
+ \left(
+ \begin{matrix}
+  a & b & c \\
+  d & e & f \\
+  g & h & i
+ \end{matrix}
+ \right)
+ \left[
+ \begin{matrix}
+  a & b & c \\
+  d & e & f \\
+  g & h & i
+ \end{matrix}
+ \right]
+\]
+
+علاوه بر روش بالا برای قرار دادن پرانتز یا سایر کمانک‌ها در اطراف یک ماتریس،
+محیط‌های از پیش‌تعریف شده‌ای نیز در \lr{\LaTeX} وجود دارند که هر یک به صورت
+خودکار علامت خاصی را اطراف ماتریس قرار می‌دهد. این محیط‌ها و علامت‌هایی که
+استفاده می‌کنند در جدول \ref{matrix-environments} آورده شده است.
+
+\begin{table}
+\begin{latin}
+\centering
+\begin{tabular}{|l|c||l|c||l|c|}
+\hline
+\rl{محیط}	&	\rl{کمانک}	&	\rl{محیط}	&	\rl{کمانک}	&	\rl{محیط}	&	\rl{کمانک} \\ \hline\hline 
+pmatrix		&	$(\,)$		&	Bmatrix		&	$\{\,\}$	&	Vmatrix 	&	$\|\,\|$	\\ \hline
+pmatrix*	&  	$(\,)$		&	Bmatrix*	& 	$\{\,\}$	& 	Vmatrix*	&	$\|\,\|$	\\ \hline
+bmatrix		&	$[\,]$		&	vmatrix 	&	$|\,|$		&				&				\\ \hline
+bmatrix*	&	$[\,]$		&	vmatrix*	&	$|\,|$		&				&				\\ \hline
+\end{tabular}
+\end{latin}
+\caption{محیط‌های مختلف از پیش‌تعریف شده در \lr{\LaTeX} برای ماتریس‌ها.}
+\label{matrix-environments}
+\end{table}
+
+\begin{note}
+تفاوت محیط‌های بدون ستاره و ستاره‌دار این است که در محیط‌های بدون ستاره ستون‌های
+ماتریس به صورت پیش‌فرض وسط ستون قرار می‌گیرند در حالی که در محیط‌های بدون
+ستاره‌دار امکان تغییر تراز عناصر ستونی ماتریس وجود دارد.
+\end{note}
+بسیاری از مواقع ماتریس‌هایی در فرمول‌ها داریم که به جای نوشتن تمام عناصر آن (در
+سطر یا ستون) سه نقطه قرار می‌دهیم. برای نوشتن چنین ماتریس‌هایی می‌توان از
+دستورات \lr{\textbackslash cdot}، \lr{\textbackslash vdot} و \lr{\textbackslash
+ddot} استفاده کرد:
+\begin{latex}
+\[
+ A_{m,n} =
+ \begin{pmatrix}
+  a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+  a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+  \vdots  & \vdots  & \ddots & \vdots  \\
+  a_{m,1} & a_{m,2} & \cdots & a_{m,n}
+ \end{pmatrix}
+\]
+\end{latex}
+\[
+ A_{m,n} =
+ \begin{pmatrix}
+  a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+  a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+  \vdots  & \vdots  & \ddots & \vdots  \\
+  a_{m,1} & a_{m,2} & \cdots & a_{m,n}
+ \end{pmatrix}
+\]
+%Matrices in running text
+\subsubsection{درج ماتریس در متن}
+برای درج یک ماتریس کوچک بین کلمات یک متن محیطی تحت عنوان \lr{smallmatrix}
+وجود دارد. مثال زیر یک ماتریس را درون یک متن و بین کلمات آن قرار
+می‌دهد:
+\begin{latex}
+This is a small matrix: 
+$\bigl(\begin{smallmatrix}
+a&b\\ c&d
+\end{smallmatrix} \bigr)$.
+This matrix is a small matrix suitable for use in text.
+\end{latex}
+\begin{latin}
+This is a small matrix: 
+$\bigl(\begin{smallmatrix}
+a&b\\ c&d
+\end{smallmatrix} \bigr)$.
+This matrix is a small matrix suitable for use in text.
+\end{latin}
+
+
+% %     10.1 Matrices in running text
+% \subsection{\lr{Adding text to equations}}
+% %     11.1 Formatted text
+% \subsection{\lr{Formatting mathematics symbols}}
+%     12.1 Accents
+%\subsection{\lr{Controlling horizontal spacing}}
+%\subsection{\lr{Advanced Mathematics: AMS Math package}}
+%     15.1 Introducing text and dots in formulas
+%     15.2 Dots
+%     15.3 Write an equation with the align environment
+% برای کسب اطلاعات بیشتر در مورد نماد های استفاده شده در \lr{LATEX} می توانید به آدرس زیر مراجعه کنید:
+% \href{http://www.wikibooks.org}{Mathematics}
+\subsection{سایر محیط‌های فرمول‌نویسی}
+\label{sec:formula-environments}
+در قسمت قبل نحوه فرمول‌نویسی به سبک \lr{\LaTeX} شرح داده شد و دو محیط اصلی برای
+فرمول‌نویسی معرفی گردید که عبارتند از: \lr{displaymath} و \lr{equation*} و البته
+برای نوشتن فرمول‌ها در میان خطوط متنی نیز از دو علامت \lr{\textbackslash $\$$}
+برای ابتدا و انتها استفاده می‌شد. در \lr{\LaTeX} برای فرمول‌نویسی محیط‌های دیگری
+نیز وجود دارند. در این قسمت این محیط‌ها و ویژگی‌های آن‌ها معرفی شده است.
+
+یکی از مهم‌ترین محدودیت‌های محیط‌های \lr{displaymath} و \lr{equation*} این است
+که نمی‌توان فرمول‌های چند خطی را با استفاده از آن‌ها نمایش داد. برای نمایش یک
+فرمول چند خطی می‌توان از محیط‌های \lr{align} و \lr{align*} استفاده کرد. در این
+محیط‌ها برای رفتن به یک خط جدید از دو علامت بک‌اسلش (\lr{\textbackslash\textbackslash})
+استفاده می‌شود. در زیر نمونه‌ای از یک فرمول چند خطی در محیط \lr{align*} نمایش
+داده شده است:
+\begin{latex}
+\begin{align*}
+ f(x) &= (x+a)(x+b) \\
+ &= x^2 + (a+b)x + ab
+\end{align*}
+\end{latex}
+\begin{align*}
+ f(x) &= (x+a)(x+b) \\
+ &= x^2 + (a+b)x + ab
+\end{align*}
+
+\begin{info}
+علامت $\&$ در این محیط خطوط مختلف فرمول را تراز می‌کند. در واقع قوانین این محیط
+خیلی شبیه به قوانین نوشتن جدول و ماتریس است. در جدول‌ها و ماتریس‌ها نیز برای
+رفتن به سطر جدید از علامت \lr{\textbackslash\textbackslash} و برای تراز کردن
+اطلاعات از علامت $\&$ استفاده می‌شود.
+\end{info}
+
+محیط‌های دیگری نیز برای فرمول‌نویسی در \lr{\LaTeX} وجود دارد که هر یک ویژگی‌ها
+و امکانات خاص خود را دارند. در جدول \ref{formulla-environments-table} این
+محیط‌ها و توصیفی خلاصه از هر یک آورده شده است.
+
+\begin{table}
+% \begin{latin}
+\centering
+\begin{tabular}{|r|p{8cm}|}
+\hline
+محیط							&	توصیف		\\ \hline\hline
+\lr{eqnarray} و \lr{eqnarray*}	&	این محیط مشابه محیط \lr{align} و \lr{aling*}
+عمل می‌کند. البته استفاده از این محیط توصیه نمی‌شود زیرا در فاصله‌گذاری باعث
+ناسازگاری‌هایی می‌شود \\ \hline 
+\lr{multline} و \lr{multline*}	&  	در این محیط خط اول از سمت چپ و خط آخر از سمت
+راست تراز می‌شود.		\\ \hline
+\lr{gather} و \lr{gather*}		&	در این محیط فرمول‌ها به صورت متوالی و بدون
+ترازبندی قرار داده می‌شوند.		\\ \hline
+\lr{flalign} و \lr{flalign*}	&	این محیط مشابه محیط	\lr{align} است با این تفاوت
+که در هر خط، اولین فرمول از سمت چپ و آخرین فرمول از سمت راست ترازبندی می‌شود	\\\hline
+\lr{alignat} و \lr{alignat*}	&	این محیط یک آرگومان به عنوان ورودی می‌گیرد که
+تعیین کننده تعداد ستون‌هاست. و همچنین در این محیط می‌توان به صورت صریح فاصله
+افقی بین فرمول‌ها را تعیین کرد. تعداد ستون‌ها را می‌توان با شمارش علامت‌های $\&$
+به اضافه یک تقسیم بر ۲ به دست آورد.	\\ \hline
+\end{tabular} 
+% \end{latin}
+\caption{برخی از محیط‌های فرمول‌نویسی تعریف شده در \lr{\LaTeX}.}
+\label{formulla-environments-table}
+\end{table} 
+

@@ -1,0 +1,225 @@
+\chapter{پیش‌پردازنده}
+
+\lr{Doxygen} 
+یک پیش‌پردازنده برای زبان \lr{C} به صورت داخلی دارد. پرونده‌های منبعی که به
+عنوان ورودی به \lr{doxygen} داده می‌شود را می‌توان با این پیش‌پردازنده تجزیه
+کرد.
+
+به صورت پیش‌فرض، \lr{doxygen} فقط پیش‌پردازش جزئی انجام می‌دهد. یعنی عبارات
+ترجمه‌ای شرطی (مثل \lr{\#if}) و تعریف ماکروها را ارزیابی می‌کند، اما بسط ماکروها
+را انجام نمی‌دهد. بنابراین اگر قطعه کد زیر را داشته باشید:
+\begin{C++}
+#define VERSION 200
+#define CONST_STRING const char *
+
+#if VERSION >= 200
+  static CONST_STRING version = "2.xx";
+#else
+  static CONST_STRING version = "1.xx";
+#endif
+\end{C++}
+
+آنگاه \lr{doxygen} به صورت پیش‌فرض کد زیر را به تجزیه‌کننده‌اش تحویل می‌دهد.
+\begin{C++}
+#define VERSION
+#define CONST_STRING
+static CONST_STRING version = "2.xx";
+\end{C++}
+
+با مقداردهی تگ \lr{ENABLE\_PREPROCESSING} با مقدار \lr{NO} در پرونده پیکربندی،
+می‌توانید تمام پیش‌پردازش‌ها را غیرفعال کنید. در این صورت در مورد قطعه کد بالا،
+\lr{doxygen} هر دو عبارت را می‌خواند. یعنی:
+\begin{C++}
+static CONST_STRING version = "2.xx";
+static CONST_STRING version = "1.xx";
+\end{C++}
+
+در صورتی که بخواهید ماکروی \lr{CONST\_STRING} در قطعه کد بالا را بسط دهید، باید تگ \lr{MACRO\_EXPANSION} را در 
+پرونده پیکربندی با مقدار \lr{YES} مقداردهی کنید. در این صورت نتیجه پس از پیش پردازش به صورت زیر خواهد بود:
+\begin{C++}
+#define VERSION
+#define CONST_STRING
+static const char * version = "1.xx";
+\end{C++}
+توجه کنید که \lr{doxygen} در این حالت تمام تعاریف ماکروها را (در صورت نیاز به صورت  بازگشتی) بسط خواهد داد. 
+این کار در اغلب موارد بسیار سنگین است. بنابراین \lr{doxygen}  همچنین به شما اجازه می‌دهد تا فقط آن تعاریفی که 
+صراحتاً تعیین می‌کنید را بسط دهید. برای این کار باید تگ \lr{EXPAND\_ONLY\_PREDEF} را با \lr{YES} مقداردهی کنید و 
+تعاریف ماکروهای مورد نظر خود را بعد از تگ \lr{PREDEFINED} یا تگ \lr{EXPAND\_AS\_DEFINED} مشخص کنید. 
+یک مثال خاص که به کمک گرفتن از پیش‌پردازنده نیاز دارد، مربوط به توسعه زبانی \lr{\_\_declspec} مایکروسافت است. 
+در زیر یک تابع مثال آمده است:
+\begin{latin}
+\lstset{language=C++}  
+\begin{lstlisting}[frame=single]
+extern "C" void __declspec(dllexport) ErrorMsg( String aMessage,...);
+\end{lstlisting}
+\end{latin}
+وقتی کاری انجام نشود، \lr{doxygen} دچار سردرگمی شده و \lr{\_\_declspec} را به عنوان یک تابع در نظر می‌گیرد. 
+برای کمک به \lr{doxygen}، می‌توان تنظیمات زیر را برای پیش‌پردازنده به کار برد:
+\begin{latin}
+\lstset{language=C++}  
+\begin{lstlisting}[frame=single] 
+ENABLE_PREPROCESSING    = YES
+MACRO_EXPANSION         = YES
+EXPAND_ONLY_PREDEF      = YES
+PREDEFINED              = __declspec(x)=
+\end{lstlisting}
+\end{latin}
+این کار اطمینان می‌دهد که قبل از اینکه کد منبع توسط \lr{doxygen} تجزیه شود، \lr{\_\_declspec(dllexport)} حذف می‌شود.
+
+به عنوان یک مثال پیچیده‌تر فرض کنید قطعه کد گیج‌کننده زیر را از یک کلاس پایه انتزاعی به نام \lr{IUnknown} دارید.
+\begin{latin}
+\lstset{language=C++}  
+\begin{lstlisting}[frame=single] 
+/*! A reference to an IID */
+#ifdef __cplusplus
+#define REFIID const IID &
+#else
+#define REFIID const IID *
+#endif
+
+
+/*! The IUnknown interface */
+DECLARE_INTERFACE(IUnknown)
+{
+  STDMETHOD(HRESULT,QueryInterface) (THIS_ REFIID iid, void **ppv) PURE;
+  STDMETHOD(ULONG,AddRef) (THIS) PURE;
+  STDMETHOD(ULONG,Release) (THIS) PURE;
+};
+\end{lstlisting}
+\end{latin}
+بدون بسط ماکرو، \lr{doxygen} دچار سردرگمی می‌شود، اما ممکن است نخواهیم ماکروی \lr{REFIID} بسط داده شود، 
+چون مستند شده است و  کاربری که مستند را می‌خواند باید هنگام پیاده‌سازی واسط از آن استفاده کند. با قرار دادن تنظیمات
+زیر در پرونده پیکربندی: 
+\begin{latin}
+\lstset{language=C++}  
+\begin{lstlisting}[frame=single] 
+ENABLE_PREPROCESSING = YES
+MACRO_EXPANSION      = YES
+EXPAND_ONLY_PREDEF   = YES
+PREDEFINED           = "DECLARE\_INTERFACE(name)=class name" \
+                       "STDMETHOD(result,name)=virtual result name" \
+                       "PURE= = 0" \
+                       THIS_= \
+                       THIS= \
+        __cplusplus
+\end{lstlisting}
+\end{latin}
+می‌توانیم مطمئن باشیم که نتیجه مناسب زیر به تجزیه‌کننده \lr{doxygen} تحویل داده می‌شود:
+\begin{latin}
+\lstset{language=C++}  
+\begin{lstlisting}[frame=single] 
+/*! A reference to an IID */
+#define REFIID
+
+/*! The IUnknown interface */
+class  IUnknown
+{
+  virtual  HRESULT   QueryInterface ( REFIID iid, void **ppv) = 0;
+  virtual  ULONG   AddRef () = 0;
+  virtual  ULONG   Release () = 0;
+};
+\end{lstlisting}
+\end{latin}
+توجه کنید که تگ \lr{PREDEFINED}، تعاریف ماکروهای شبیه تابع (مثل \lr{DECLARE\_INTERFACE})، جایگزینی‌های ماکروهای 
+معمولی مثل (مثل \lr{PURE} و \lr{THIS}) و تعاریف ساده (مثل \lr{\_\_cplusplus}) را می‌پذیرد. 
+
+همچنین توجه کنید که آن تعاریف پیش‌پردازنده که معمولاً به طور خودکار به وسیله پیش‌پردازنده تعریف شده‌اند (مثل \lr{\_\_cplusplus})، 
+باید به صورت دستی به تجزیه‌کننده \lr{doxygen} معرفی شوند (این کار به این دلیل است که این تعاریف اغلب مخصوص 
+بستر\footnote{\lr{Platform}} یا مترجم\footnote{\lr{Compiler}} هستند).
+
+%در بعضی موارد شما  ممکن است بخواهید یک نام ماکرو  یا تابع را با چیز دیگری جایگزین کنید بدون اینکه 
+%این جایگزینی گزارش شود. شما می‌توانید این کار را با استفاده از عملگر =: به جای = انجام دهید.
+%به عنوان مثال فرض کنید قطعه کد زیر را داریم:
+%\begin{latin}
+%\lstset{language=C++}  
+%\begin{lstlisting}[frame=single]
+%
+%\end{lstlisting}
+%\end{latin}
+
+%بنابراین تنها راهی که این قطعه، به عنوان یک تعریف کلاس برای کلاس \lr{qlist} در \lr{doxygen} تفسیر شود به این صورت می باشد:
+%\begin{latin}
+%\lstset{language=C++}  
+%\begin{lstlisting}[frame=single] 
+%PREDEFINED = QListT:=QList
+%\end{lstlisting}
+%\end{latin}
+%
+%در اینجا یک مثال از \lr{Valter Minute} و \lr{Reyes Ponce} آورده شده که به \lr{doxygen} کمک میکند 
+%که کد را  در کتابخانه‌های \lr{ATL} و \lr{MFC} مایکروسافت شناور سازد.
+%\begin{latin}
+%\lstset{language=C++}  
+%\begin{lstlisting}[frame=single] 
+%PREDEFINED           = "DECLARE\_INTERFACE(name)=class name" \
+%                       "STDMETHOD(result,name)=virtual result name" \
+%                      "PURE= = 0" \
+%                       THIS\_= \
+%                       THIS= \
+%                       DECLARE\_REGISTRY\_RESOURCEID=// \
+%                       DECLARE\_PROTECT\_FINAL\_CONSTRUCT=// \
+%                       "DECLARE\_AGGREGATABLE(Class)= " \
+%                      "DECLARE\_REGISTRY\_RESOURCEID(Id)= " \
+%                       DECLARE\_MESSAGE\_MAP= \
+%                       BEGIN\_MESSAGE\_MAP=/* \
+%                       END\_MESSAGE\_MAP=*/// \
+%                       BEGIN\_COM\_MAP=/* \
+%                       END\_COM\_MAP=*/// \
+%                       BEGIN\_PROP\_MAP=/* \
+%                       END\_PROP\_MAP=*/// \
+%                       BEGIN\_MSG\_MAP=/* \
+%                       END\_MSG\_MAP=*/// \
+%                       BEGIN\_PROPERTY\_MAP=/* \
+%                       END\_PROPERTY\_MAP=*/// \
+%                       BEGIN\_OBJECT\_MAP=/* \
+%                      END\_OBJECT\_MAP()=*/// \
+%                       DECLARE\_VIEW\_STATUS=// \
+%                       "STDMETHOD(a)=HRESULT a" \
+%                       "ATL\_NO\_VTABLE= " \
+%                       "\_\_declspec(a)= " \
+%                       BEGIN\_CONNECTION\_POINT\_MAP=/* \
+%                       END\_CONNECTION\_POINT\_MAP=*/// \
+%                       "DECLARE\_DYNAMIC(class)= " \
+%                       "IMPLEMENT\_DYNAMIC(class1, class2)= " \
+%                       "DECLARE\_DYNCREATE(class)= " \
+%                       "IMPLEMENT\_DYNCREATE(class1, class2)= " \
+%                       "IMPLEMENT\_SERIAL(class1, class2, class3)= " \
+%                       "DECLARE\_MESSAGE\_MAP()= " \
+%                       TRY=try \
+%                       "CATCH\_ALL(e)= catch(...)" \
+%                       END\_CATCH\_ALL= \
+%                       "THROW\_LAST()= throw"\
+%                       "RUNTIME\_CLASS(class)=class" \
+%                       "MAKEINTRESOURCE(nId)=nId" \
+%                       "IMPLEMENT\_REGISTER(v, w, x, y, z)= " \
+%                       "ASSERT(x)=assert(x)" \
+%                       "ASSERT\_VALID(x)=assert(x)" \
+%                       "TRACE0(x)=printf(x)" \
+%                       "OS\_ERR(A,B)={ #A, B }" \
+%                       \_\_cplusplus \
+%                       "DECLARE\_OLECREATE(class)= " \
+%                       "BEGIN\_DISPATCH\_MAP(class1, class2)= " \
+%                       "BEGIN\_INTERFACE\_MAP(class1, class2)= " \
+%                       "INTERFACE\_PART(class, id, name)= " \
+%                       "END\_INTERFACE\_MAP()=" \
+%                       "DISP\_FUNCTION(class, name, function, result, id)=" \
+%                       "END\_DISPATCH\_MAP()=" \
+%                       "IMPLEMENT\_OLECREATE2(class, name, id1, id2, id3, id4,\
+%                        id5, id6, id7, id8, id9, id10, id11)="
+%\end{lstlisting}
+%\end{latin}
+همانطور که مشاهده می‌شود پیش‌پردازنده \lr{doxygen} بسیار قدرتمند است، با این حال اگر نیاز به انعطاف‌پذیری بیشتری 
+دارید همواره می‌توانید یک پالایه\footnote{\lr{Filter}} ورودی بنویسید و آن را بعد از تگ \lr{INPUT\_FILTER} قرار دهید.
+
+اگر مطمئن نیستید که عملیات پیش‌پردازش \lr{doxygen} چه اثری خواهد داشت،  می‌توانید \lr{doxygen} را به صورت زیر 
+از طریق خط فرمان اجرا کنید:
+\begin{latin}
+\lstset{language=C++}  
+\begin{lstlisting}[frame=single] 
+doxygen -d Preprocessor
+\end{lstlisting}
+\end{latin}
+این فرمان به \lr{doxygen} دستور خواهد داد که منابع ورودی را بعد از اینکه عملیات پیش‌پردازش انجام شد، در 
+خروجی استاندارد چاپ کند. به عبارتی با این فرمان شما علاوه بر اجرای \lr{doxygen} برای تولید مستند می‌توانید در خروجی 
+خط فرمان محتویات پرونده‌های منبع را پس از پیش‌پردازش انجام شده به وسیله \lr{doxygen} ببینید. (نکته: برای غیرفعال 
+کردن پیغام‌ها و خروجی‌های دیگر، تگ‌های \lr{QUIET} و \lr{WARNING} را در پرونده پیکربندی 
+به صورت \lr{QUIET=YES} و \lr{WARNING=NO} مقداردهی کنید.)

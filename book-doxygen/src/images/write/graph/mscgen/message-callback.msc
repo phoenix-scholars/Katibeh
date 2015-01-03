@@ -1,0 +1,5 @@
+msc{
+	a,
+	b;
+	a>>b[label="Call back"];
+}

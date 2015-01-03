@@ -1,0 +1,8 @@
+msc {
+	a, b;
+	|||[label="Message Space"];
+	a box b[label="Interaction"];
+	---[label="Section Bound"];
+	a box b[label="Interaction"];
+	...[label="Discret Time"];
+}

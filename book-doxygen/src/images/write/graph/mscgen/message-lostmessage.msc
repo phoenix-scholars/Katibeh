@@ -1,0 +1,6 @@
+msc{
+	a,
+	b;
+	a -X b[label="Lost Message"];
+	a X- b;
+}

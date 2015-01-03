@@ -1,0 +1,16 @@
+msc {
+	#Entity
+	a[label="Customer"],
+	b[label="ATM"], 
+	c[label="Bank employee"], 
+	d[label="Backup System"];
+	#Message sequnce
+	a => b[label="Transfer Money", 
+		ID="1"];
+	b -> c[label="Check Transfer System", 
+		URL="\ref BankEmployee#trasactionSignal()"];
+	b -> d[label="Store Transaction"];
+	a << b[label="Notification", 
+		ID="2",
+		IDURL="http://wiki.arsheet.org"];
+}
